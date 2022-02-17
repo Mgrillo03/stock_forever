@@ -5,74 +5,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar nuevo articulo</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: peachpuff;
+        }
+        .titulo {
+            color: mediumpurple;
+        }        
+        .stock {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            margin-left: 16px;
+        }
+        .form-container {
+
+            width: 250px;
+        }
+        .form {
+            display: flex;
+            flex-direction: column;
+        }
+        .label {
+            font-weight: bold;
+            font-size: 14 px;
+            margin-bottom: 4 px;
+        }
+        .input {
+            margin-bottom: 8px;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Nuevo Articulo</h1>
-    </header>
-    <form action="{% url 'stock:add'%}" method="post">
-         {% csrf_token %}
-        <label for="name">Nombre:</label> <br>
-        <input  type="text" 
-                id="name" 
-                placeholder="Nombre del articulo" 
-                name="name"
-                value="{{name.id}}" 
-                required/><br><br>
+    <div class="stock">
+
+        <div class="form-container">
+            <h1 class="titulo">Nuevo artículo</h1>
+            <form action="{% url 'stock:add'%}" method="post" class="form">
+                <!-- {% csrf_token %} -->
+               <label for="name" class="label">Nombre: </label> 
+               <input type="text" id="name" placeholder="Nombre del articulo" class="input"/>
+               <label for="category" class="label">Categoria:</label>
+               <input list="category-list" name="category" class="input">
+               <datalist id="category-list">
+                   <option value="Anillo"></option>
+                   <option value="Pulsera"></option>
+                   <option value="Collar"></option>
+                   <option value="Tobillera"></option>
+                   <option value="Sarcillo"></option>
+                   <option value="Accesorios de Cabello"></option>
+               </datalist>
        
-        <label for="category">Categoria:</label> <br>
-        <input  list="category-list" 
-                name="category" 
-                placeholder="Selccione Opcion.."
-                required/>
-        <datalist id="category-list">
-            <option value="Anillo"></option>
-            <option value="Pulsera"></option>
-            <option value="Cadena"></option>
-            <option value="Conjunto"></option>
-            <option value="Tobillera"></option>
-            <option value="Sarcillo"></option>
-            <option value="Accesorios de Cabello"></option>
-        </datalist><br><br>
-
-        <label for="material">Material:</label> <br>
-        <input  list="material-list" 
-                name="material"  
-                placeholder="Selccione Opcion.."
-                required/>
-        <datalist id="material-list">
-            <option value="Acero Quirurgico"></option>
-            <option value="Acero Dorado"></option>
-            <option value="Acero Blanco"></option>
-            <option value="Acero Rosado"></option>
-        </datalist><br><br>
+                <!-- {% comment %}  -->
+                <label for="category" class="label">Categoria: </label>
+                <input type="text" id="category"  placeholder="Anillo/Pulsera.." class="input"/>
+            
+               <!-- {% endcomment %} -->
+               <label for="material" class="label">Material: </label>
+               <input type="text" id="material"  placeholder="Acero/Acero Dorado.." class="input"/>
+               
+               <label for="price" class="label">Costo: </label>
+               <input type="number" id="price"  placeholder="Costo del articulo" name="price" value="{{price.id}}" class="input"/>
+               
+               <label for="in-stock" class="label">Cantidad en stock: </label>
+               <input type="number" id="in-stock"  placeholder="Cantidad en Stock" class="input"/>
+               
+               
+               <label for="sell_price" class="label">Precio de venta: </label>
+               <input type="text" id="sell_price" placeholder="Precio al publico" class="input"/>
+               
+       
+                <input type="submit" value="Agregar" class="boton_agregar">
+           </form>
+        </div>
         
-        <label for="price">Costo:</label> <br>
-        <input  type="number" 
-                id="price"  
-                placeholder="Costo del articulo" 
-                name="price" 
-                value="{{price.id}}"
-                required/><br><br>
-        
-        <label for="in_stock">Cantidad en Stock:</label> <br>
-        <input  type="number"  
-                id="in_stock"  
-                placeholder="Cantidad en Stock"
-                name="in_stock"
-                value="{{in_stock.id}}"
-                required/><br><br>
-        
-        <label for="sell_price">Precio de Venta:</label> <br>
-        <input  type="text" 
-                id="sell_price"
-                name="sell_price"
-                placeholder="Precio al publico"/><br><br>
-        
-        <input type="submit" value"Agregar">
-    </form>
-
-    <a href="{% url 'stock:index' %}">Cancelar</a>
+    </div>
     
 </body>
 </html>
