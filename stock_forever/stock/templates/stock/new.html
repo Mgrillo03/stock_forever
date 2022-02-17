@@ -12,12 +12,11 @@
     </header>
     <form action="{% url 'stock:add'%}" method="post">
          {% csrf_token %}
-        <label for="name">
-             <span>Nombre: </span>
-             <input type="text" id="name" placeholder="Nombre del articulo"/>
-        </label> <br>
-        <span>Categoria:</span>
-        <input list="category-list" name="category">
+        <label for="name">Nombre:</label> <br>
+        <input type="text" id="name" placeholder="Nombre del articulo"/><br><br>
+       
+        <label for="category">Categoria:</label> <br>
+        <input list="category-list" name="category" placeholder="Selccione Opcion..">
         <datalist id="category-list">
             <option value="Anillo"></option>
             <option value="Pulsera"></option>
@@ -25,37 +24,27 @@
             <option value="Tobillera"></option>
             <option value="Sarcillo"></option>
             <option value="Accesorios de Cabello"></option>
-        </datalist><br>
+        </datalist><br><br>
 
-         {% comment %} <label for="category">
-            <span>Categoria: </span>
-            <input type="text" id="category"  placeholder="Anillo/Pulcera.."/>
-        </label> {% endcomment %}
-        <label for="material">
-            <span>Material: </span>
-            <input type="text" id="material"  placeholder="Acero/Acero Dorado.."/>
-        </label><br>
-        <label for="price">
-            <span>Costo: </span>
-            <input type="number" id="price"  placeholder="Costo del articulo" name="price" value="{{price.id}}"/>
-        </label><br>
-        <label for="in-stock">
-            <span>Cantidad en Stock: </span>
-            <input type="number" id="in-stock"  placeholder="Cantidad en Stock"/>
-        </label><br>
+        <label for="material">Material:</label> <br>
+        <input list="material-list" id="material"  placeholder="Selccione Opcion.."/>
+        <datalist id="material-list">
+            <option value="Acero Quirurgico"></option>
+            <option value="Acero Dorado"></option>
+            <option value="Acero Blanco"></option>
+            <option value="Acero Rosado"></option>
+        </datalist><br><br>
         
-        <label for="sell_price">
-            <span>Precio de Venta: </span>
-            <input type="text" id="sell_price" placeholder="Precio al publico"/>
-        </label><br>
-
-
-
-
-
-
-
-         <input type="submit" value"Agregar">
+        <label for="price">Costo:</label> <br>
+        <input type="number" id="price"  placeholder="Costo del articulo" name="price" value="{{price.id}}"/><br><br>
+        
+        <label for="in-stock">Cantidad en Stock:</label> <br>
+        <input type="number" id="in-stock"  placeholder="Cantidad en Stock"/><br><br>
+        
+        <label for="sell_price">Precio de Venta:</label> <br>
+        <input type="text" id="sell_price" placeholder="Precio al publico"/><br><br>
+        
+        <input type="submit" value"Agregar">
     </form>
   
     
