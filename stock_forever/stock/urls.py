@@ -14,6 +14,9 @@ urlpatterns = [
     #path("<int:pk>/update/",  views.ResultView.as_view(), name= "update"),
     #ex: /stock/5/delete/   falta actualizar
     #path("<int:question_id>/vote/",  views.vote, name= "delete"),
-    #ex: /stock/add     falta actualizar
-    #path("stock/add/", name="add")
+    #ex: /stock/new     falta actualizar
+    path("new/", views.new, name="new"),
+    #ex /stock/add
+    path("add/",views.add, name= "add")
+    
 ]

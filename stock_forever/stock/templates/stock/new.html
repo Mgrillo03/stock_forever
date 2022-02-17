@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar nuevo articulo</title>
+</head>
+<body>
+    <header>
+        <h1>Nuevo Articulo</h1>
+    </header>
+    <form action="{% url 'stock:add'%}" method="post">
+         {% csrf_token %}
+        <label for="name">
+             <span>Nombre: </span>
+             <input type="text" id="name" placeholder="Nombre del articulo"/>
+        </label> <br>
+        <span>Categoria:</span>
+        <input list="category-list" name="category">
+        <datalist id="category-list">
+            <option value="Anillo"></option>
+            <option value="Pulsera"></option>
+            <option value="Collar"></option>
+            <option value="Tobillera"></option>
+            <option value="Sarcillo"></option>
+            <option value="Accesorios de Cabello"></option>
+        </datalist><br>
+
+         {% comment %} <label for="category">
+            <span>Categoria: </span>
+            <input type="text" id="category"  placeholder="Anillo/Pulcera.."/>
+        </label> {% endcomment %}
+        <label for="material">
+            <span>Material: </span>
+            <input type="text" id="material"  placeholder="Acero/Acero Dorado.."/>
+        </label><br>
+        <label for="price">
+            <span>Costo: </span>
+            <input type="number" id="price"  placeholder="Costo del articulo" name="price" value="{{price.id}}"/>
+        </label><br>
+        <label for="in-stock">
+            <span>Cantidad en Stock: </span>
+            <input type="number" id="in-stock"  placeholder="Cantidad en Stock"/>
+        </label><br>
+        
+        <label for="sell_price">
+            <span>Precio de Venta: </span>
+            <input type="text" id="sell_price" placeholder="Precio al publico"/>
+        </label><br>
+
+
+
+
+
+
+
+         <input type="submit" value"Agregar">
+    </form>
+  
+    
+  
+
+    
+</body>
+</html>
