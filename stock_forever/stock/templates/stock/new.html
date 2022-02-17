@@ -13,21 +13,33 @@
     <form action="{% url 'stock:add'%}" method="post">
          {% csrf_token %}
         <label for="name">Nombre:</label> <br>
-        <input type="text" id="name" placeholder="Nombre del articulo"/><br><br>
+        <input  type="text" 
+                id="name" 
+                placeholder="Nombre del articulo" 
+                name="name"
+                value="{{name.id}}" 
+                required/><br><br>
        
         <label for="category">Categoria:</label> <br>
-        <input list="category-list" name="category" placeholder="Selccione Opcion..">
+        <input  list="category-list" 
+                name="category" 
+                placeholder="Selccione Opcion.."
+                required/>
         <datalist id="category-list">
             <option value="Anillo"></option>
             <option value="Pulsera"></option>
-            <option value="Collar"></option>
+            <option value="Cadena"></option>
+            <option value="Conjunto"></option>
             <option value="Tobillera"></option>
             <option value="Sarcillo"></option>
             <option value="Accesorios de Cabello"></option>
         </datalist><br><br>
 
         <label for="material">Material:</label> <br>
-        <input list="material-list" id="material"  placeholder="Selccione Opcion.."/>
+        <input  list="material-list" 
+                name="material"  
+                placeholder="Selccione Opcion.."
+                required/>
         <datalist id="material-list">
             <option value="Acero Quirurgico"></option>
             <option value="Acero Dorado"></option>
@@ -36,20 +48,31 @@
         </datalist><br><br>
         
         <label for="price">Costo:</label> <br>
-        <input type="number" id="price"  placeholder="Costo del articulo" name="price" value="{{price.id}}"/><br><br>
+        <input  type="number" 
+                id="price"  
+                placeholder="Costo del articulo" 
+                name="price" 
+                value="{{price.id}}"
+                required/><br><br>
         
-        <label for="in-stock">Cantidad en Stock:</label> <br>
-        <input type="number" id="in-stock"  placeholder="Cantidad en Stock"/><br><br>
+        <label for="in_stock">Cantidad en Stock:</label> <br>
+        <input  type="number"  
+                id="in_stock"  
+                placeholder="Cantidad en Stock"
+                name="in_stock"
+                value="{{in_stock.id}}"
+                required/><br><br>
         
         <label for="sell_price">Precio de Venta:</label> <br>
-        <input type="text" id="sell_price" placeholder="Precio al publico"/><br><br>
+        <input  type="text" 
+                id="sell_price"
+                name="sell_price"
+                placeholder="Precio al publico"/><br><br>
         
         <input type="submit" value"Agregar">
     </form>
-  
-    
-  
 
+    <a href="{% url 'stock:index' %}">Cancelar</a>
     
 </body>
 </html>
