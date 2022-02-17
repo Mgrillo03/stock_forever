@@ -45,9 +45,16 @@
         <div class="form-container">
             <h1 class="titulo">Nuevo artículo</h1>
             <form action="{% url 'stock:add'%}" method="post" class="form">
-                <!-- {% csrf_token %} -->
+                {% csrf_token %}
                <label for="name" class="label">Nombre: </label> 
-               <input type="text" id="name" placeholder="Nombre del articulo" class="input"/>
+               <input   type="text" 
+                        id="name" 
+                        placeholder="Nombre del articulo" 
+                        class="input"
+                        name="name"
+                        value="{{name.id}}"
+                        required/>
+
                <label for="category" class="label">Categoria:</label>
                <input list="category-list" name="category" class="input">
                <datalist id="category-list">
@@ -59,23 +66,43 @@
                    <option value="Accesorios de Cabello"></option>
                </datalist>
        
-                <!-- {% comment %}  -->
-                <label for="category" class="label">Categoria: </label>
-                <input type="text" id="category"  placeholder="Anillo/Pulsera.." class="input"/>
-            
-               <!-- {% endcomment %} -->
-               <label for="material" class="label">Material: </label>
-               <input type="text" id="material"  placeholder="Acero/Acero Dorado.." class="input"/>
-               
+               <label for="material" class="label">Material:</label> 
+               <input  list="material-list" 
+                       name="material"  
+                       placeholder="Selccione Opcion.."
+                       required/>
+               <datalist id="material-list">
+                   <option value="Acero Quirurgico"></option>
+                   <option value="Acero Dorado"></option>
+                   <option value="Acero Blanco"></option>
+                   <option value="Acero Rosado"></option>
+               </datalist>
+
                <label for="price" class="label">Costo: </label>
-               <input type="number" id="price"  placeholder="Costo del articulo" name="price" value="{{price.id}}" class="input"/>
+               <input   type="number" 
+                        id="price"  
+                        placeholder="Costo del articulo" 
+                        name="price" 
+                        value="{{price.id}}" 
+                        class="input"
+                        required/>
                
-               <label for="in-stock" class="label">Cantidad en stock: </label>
-               <input type="number" id="in-stock"  placeholder="Cantidad en Stock" class="input"/>
-               
+               <label for="in_stock" class="label">Cantidad en stock: </label>
+               <input   type="number" 
+                        id="in_stock"  
+                        placeholder="Cantidad en Stock" 
+                        class="input"
+                        name="in_stock"
+                        value="{{in_stock.id}}"
+                        required/>               
                
                <label for="sell_price" class="label">Precio de venta: </label>
-               <input type="text" id="sell_price" placeholder="Precio al publico" class="input"/>
+               <input   type="text" 
+                        id="sell_price" 
+                        placeholder="Precio al publico" 
+                        class="input"
+                        name="sell_price"
+                        value="{{sell_price.id}}"/>
                
        
                 <input type="submit" value="Agregar" class="boton_agregar">
