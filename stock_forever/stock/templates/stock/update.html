@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar nuevo articulo</title>
+    <title>Document</title>
     <style>
         body {
             margin: 0;
@@ -40,23 +40,23 @@
     </style>
 </head>
 <body>
+    <h1>Estas editando</h1>
     <div class="stock">
 
         <div class="form-container">
-            <h1 class="titulo">Nuevo artículo</h1>
-            <form action="{% url 'stock:add'%}" method="post" class="form">
+            <h1 class="titulo">Actualizar artículo</h1>
+            <form action="{% url 'stock:save_update' product.id%}" method="post" class="form">
                 {% csrf_token %}
                <label for="name" class="label">Nombre: </label> 
                <input   type="text" 
                         id="name" 
-                        placeholder="Nombre del articulo" 
                         class="input"
                         name="name"
-                        value="{{name.id}}"
+                        value="{{product.name}}"
                         required/>
 
                <label for="category" class="label">Categoria:</label>
-               <input list="category-list" name="category" class="input">
+               <input list="category-list" name="category" class="input" value="{{product.category}}">
                <datalist id="category-list">
                    <option value="Anillo"></option>
                    <option value="Pulsera"></option>
@@ -69,7 +69,7 @@
                <label for="material" class="label">Material:</label> 
                <input  list="material-list" 
                        name="material"  
-                       placeholder="Selccione Opcion.."
+                       value="{{product.material}}"
                        required/>
                <datalist id="material-list">
                    <option value="Acero Quirurgico"></option>
@@ -83,7 +83,7 @@
                         id="price"  
                         placeholder="Costo del articulo" 
                         name="price" 
-                        value="{{price.id}}" 
+                        value="{{product.price}}" 
                         class="input"
                         required/>
                
@@ -93,7 +93,7 @@
                         placeholder="Cantidad en Stock" 
                         class="input"
                         name="in_stock"
-                        value="{{in_stock.id}}"
+                        value="{{product.stock}}"
                         required/>               
                
                <label for="sell_price" class="label">Precio de venta: </label>
@@ -102,8 +102,17 @@
                         placeholder="Precio al publico" 
                         class="input"
                         name="sell_price"
-                        value="{{sell_price.id}}"/>
+                        value="{{product.sell_price}}"
+                        required/>
                
+
+                <label for="sug_price" class="label">Precio de venta sugerido: </label>
+                <input   type="text" 
+                            id="sug_price" 
+                            class="input"
+                            name="sug_price"
+                            value="{{product.sug_price}}"
+                            required/>
        
                 <input type="submit" value="Agregar" class="boton_agregar"><br>
                 <a href="{% url 'stock:index' %}">Cancelar</a>

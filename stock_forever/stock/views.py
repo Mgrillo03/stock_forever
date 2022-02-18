@@ -1,16 +1,15 @@
 from unicodedata import category
 from urllib import response
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Product
 
 
-def index(request, added=''):
+def index(request):
     product_list = Product.objects.all()
     return render(request, "stock/index.html",{
-        'product_list' : product_list,
-        'added': added
+        'product_list' : product_list
     })
 
 def new(request):
@@ -22,7 +21,7 @@ def add(request):
     product.name = request.POST["name"]
     product.category = request.POST["category"]
     product.material = request.POST["material"]
-    product.in_stock = request.POST["in_stock"]
+    product.stock = request.POST["in_stock"]
     product.price = request.POST["price"]
     if request.POST["sell_price"]:
         product.sell_price = request.POST["sell_price"]
@@ -36,8 +35,30 @@ def add(request):
         'name' : product.name,
         'category': product.category,
         'material': product.material,
-        'in_stock' : product.in_stock,
+        'in_stock' : product.stock,
         'price' : product.price,
         'sell_price' : product.sell_price,
         'sug_price' : product.sug_price
     })
+
+
+def update(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    return render(request, "stock/update.html",{
+        'product' : product
+    })
+    
+def save_update(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    product.name = request.POST["name"]
+    product.category = request.POST["category"]
+    product.material = request.POST["material"]
+    product.stock = request.POST["in_stock"]
+    product.price = request.POST["price"]
+    product.sell_price = request.POST["sell_price"]
+    product.sug_price = request.POST["sug_price"]
+    product.save()
+    return render(request, "stock/update_saved.html",{
+        'product' : product
+    })
+    

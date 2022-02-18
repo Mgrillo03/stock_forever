@@ -18,7 +18,17 @@
         <ul>
         {% for product in product_list %}
         {% comment %} <li><a href="{% url 'stock:detail' question.id %}">{{  question.question_text  }}</a></li>     {% endcomment %}
-            <li>{{product.name}}    {{product.category}}    {{product.stock}}  {{product.sell_price}}</li>
+            <li>
+                <a href="{% url 'stock:update' product.id%}">{{product.id}}</a>- 
+                {{product.name}} - 
+                {{product.material}} - 
+                {{product.category}} 
+                ${{product.price}}  
+                -{{product.stock}}-  
+                ${{product.sell_price}} 
+                ${{product.sug_price}}</li>
+
+
         {% endfor %}
         </ul>
         </main>
