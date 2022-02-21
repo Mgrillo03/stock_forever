@@ -13,35 +13,46 @@
             <h1>Lista de Articulos</h1>
         </header>
         <main>           
-    
-      <h4>  -nombre                             -categoria         -stock   -precio</h4>
         
-        
-
+       
         <form action="{% url 'stock:update_or_delete'%}" method="post">
             {% csrf_token %}
-            <fieldset>
+            <table>
+            <tr>
+            <th >id-</th>
+            <th ><strong>Nombre </strong></th>
+            <th ><strong> Categoria </strong></th>
+            <th ><strong> Material </strong></th>
+            <th ><strong> Stock </strong></th>
+            <th ><strong> Costo $ </strong></th>
+            <th ><strong> Precio Venta $ </strong></th>
+            <th ><strong> Precio Sug $ </strong></th>
+            </tr>
+       
             {% for choice in product_list  %}
-                    <input 
+                    <tr>
+                    <td><input 
                         type="radio" 
                         name="choice" 
                         id="choice{{ forloop.counter }}"
-                        value="{{choice.id}}">
+                        value="{{choice.id}}"></td>
                     <label for="choice{{ forloop.counter }}">
-                        {{choice.name}} - 
-                        {{choice.material}} - 
-                        {{choice.category}} 
-                        ${{choice.price}}  
-                        -{{choice.stock}}-  
-                        ${{choice.sell_price}} 
-                        ${{choice.sug_price}}
-                    </label>        <br>
+                        
+                        <td>{{choice.name}}</td>
+                        <td>{{choice.category}}</td>
+                        <td>{{choice.material}}</td>                     
+                        <td>{{choice.stock}}</td>
+                        <td>{{choice.price}}</td>
+                        <td>{{choice.sell_price}} </td>
+                        <td>{{choice.sug_price}}</td>
+                        </tr>
+                    </label>      
             {% endfor %}  
-            </fieldset>
+        </table>
             <br>
 
             <input type="submit" name="action" value="Eliminar">
-            <input type="submit" name="action" value="Editar">
+            <input type="submit" name="action" value="Editar"><br><br>
             
         </form>
 

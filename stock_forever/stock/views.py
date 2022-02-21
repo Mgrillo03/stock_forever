@@ -1,3 +1,5 @@
+from email import message
+from itertools import product
 from unicodedata import category
 from urllib import response
 from django.shortcuts import render, get_object_or_404
@@ -8,7 +10,7 @@ from .models import Product
 
 def index(request):
     product_list = Product.objects.all()
-    return render(request, "stock/index.html",{
+    return render(request, "stock/index2.html",{
         'product_list' : product_list
     })
 
@@ -32,20 +34,7 @@ def add(request):
 
 
     return render(request, "stock/add.html",{
-        'name' : product.name,
-        'category': product.category,
-        'material': product.material,
-        'in_stock' : product.stock,
-        'price' : product.price,
-        'sell_price' : product.sell_price,
-        'sug_price' : product.sug_price
-    })
-
-
-def update(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    return render(request, "stock/update.html",{
-        'product' : product
+        'product':product
     })
     
 def save_update(request, product_id):
@@ -61,4 +50,25 @@ def save_update(request, product_id):
     return render(request, "stock/update_saved.html",{
         'product' : product
     })
-    
+
+def update_or_delete(request):
+    if request.POST["action"] == "Editar":
+        product = get_object_or_404(Product, pk=request.POST["choice"])
+        return render(request, "stock/update.html",{
+            'product' : product
+        })
+    elif request.POST["action"] == "Eliminar":
+        product = get_object_or_404(Product, pk=request.POST["choice"])
+        return render(request, "stock/delete.html",{
+            'product' : product
+        })
+
+def confirm_detele(request, product_id):
+    if request.POST["action"] == "Eliminar":
+        product = get_object_or_404(Product, pk=product_id)
+        product.delete()
+        return render(request, "stock/product_deleted.html",{
+            'message':'Eliminado Satisfactoriamente'
+        })
+    else:
+        return HttpResponseRedirect(reverse("stock:index"))

@@ -8,40 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar nuevo articulo</title>
     <link href="{% static '/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection" /> 
-    {% comment %} <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="screen,projection"> {% endcomment %}
-    <!-- <style>
-        body {
-            margin: 0;
-            background-color: peachpuff;
-        }
-
-        .titulo {
-            color: mediumpurple;
-        }        
-        .stock {
-            display: flex;
-            width: 100%;
-            height: 100vh;
-            margin-left: 16px;
-        }
-        .form-container {
-
-            width: 250px;
-        }
-        .form {
-            display: flex;
-            flex-direction: column;
-        }
-        .label {
-            font-weight: bold;
-            font-size: 14 px;
-            margin-bottom: 4 px;
-        }
-        .input {
-            margin-bottom: 8px;
-            border: none;
-        }
-    </style> -->
 </head>
 <body>
     <div class="stock">
@@ -60,13 +26,13 @@
                         required/>
 
                <label for="category" class="label">Categoria:</label>
-               <input list="category-list" name="category" class="input">
+               <input   list="category-list" name="category" class="input" placeholder="Selccione Opcion..">
                <datalist id="category-list">
                    <option value="Anillo"></option>
                    <option value="Pulsera"></option>
                    <option value="Collar"></option>
                    <option value="Tobillera"></option>
-                   <option value="Sarcillo"></option>
+                   <option value="Zarcillo"></option>
                    <option value="Accesorios de Cabello"></option>
                </datalist>
        

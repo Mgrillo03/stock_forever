@@ -9,13 +9,13 @@
 <body>
     <header><h1>Producto Creado Correctamente</h1></header>
 
-    nombre: {{name}} <br>
-    categoria: {{category}} <br>
-    material: {{material}} <br>
-    cantidad en stock: {{in_stock}} <br>
-    precio: {{price}} <br>
-    precio de venta sugerido: {{sug_price}} <br>
-    precio de venta: {{sell_price}} <br>
+    nombre: {{product.name}} <br>
+    categoria: {{product.category}} <br>
+    material: {{product.material}} <br>
+    cantidad en stock: {{product.in_stock}} <br>
+    precio: {{product.price}} <br>
+    precio de venta sugerido: {{product.sug_price}} <br>
+    precio de venta: {{product.sell_price}} <br>
 
     <br><br><br>
     <a href="{% url 'stock:index' %}">volver a inicio</a>

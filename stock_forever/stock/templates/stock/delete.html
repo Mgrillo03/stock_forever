@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Estas a punto de eliminar el articulo: {{product.name}}</h1>
+    <h3>estas seguro que deseas continuar?</h3><br>
+    <form action="{% url 'stock:confirm_delete' product.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" name="action" value="Eliminar">
+        <input type="submit" name="action" value="Cancelar">
+    </form>
+    
+</body>
+</html>
