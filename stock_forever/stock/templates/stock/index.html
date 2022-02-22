@@ -1,16 +1,18 @@
 <!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'stock/style.css' %}">
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Forever</title>
-    <link rel="stylesheet" href="./css/style.css">
+    
 </head>
 <body>
     {% if product_list %}
         <header>
-            <h1>Productos en Stock</h1>
+            <h1 class="titulo">Productos en Stock</h1>
         </header>
         <main>           
     
@@ -18,14 +20,14 @@
             {% csrf_token %}
             <table>
                 <tr>
-                <th >id-</th>
+                <td >-</td>
                 <th ><strong>Nombre </strong></th>
                 <th ><strong> Categoria </strong></th>
                 <th ><strong> Material </strong></th>
-                <th ><strong> Stock </strong></th>
-                <th ><strong> Costo $ </strong></th>
-                <th ><strong> Precio Venta $ </strong></th>
-                <th ><strong> Precio Sug $ </strong></th>
+                <th ><strong> Stock -</strong></th>
+                <th ><strong> Costo - </strong></th>
+                <th ><strong> Precio Venta - </strong></th>
+                <th ><strong> Precio Sug </strong></th>
                 </tr>
            
                 {% for choice in product_list  %}
@@ -40,10 +42,10 @@
                             <td>{{choice.name}}</td>
                             <td>{{choice.category}}</td>
                             <td>{{choice.material}}</td>                     
-                            <td>{{choice.stock}}</td>
-                            <td>{{choice.price}}</td>
-                            <td>{{choice.sell_price}} </td>
-                            <td>{{choice.sug_price}}</td>
+                            <th>{{choice.stock}}</th>
+                            <td>{{choice.price}}$</td>
+                            <td>{{choice.sell_price}}$ </td>
+                            <td>{{choice.sug_price}}$</td>
                             </tr>
                         </label>      
                 {% endfor %}  
@@ -55,7 +57,9 @@
             <br>
             
         </form>
-
+        {% if error_message %}
+        <p><strong>{{error_message}}</strong></p>   
+        {% endif %}
 
         </main>
     {% else %}

@@ -52,23 +52,29 @@ def save_update(request, product_id):
     })
 
 def update_or_delete(request):
-    if request.POST["action"] == "Editar":
+    product_list = Product.objects.all()
+    try:
         product = get_object_or_404(Product, pk=request.POST["choice"])
-        return render(request, "stock/update.html",{
-            'product' : product
-        })
-    elif request.POST["action"] == "Eliminar":
-        product = get_object_or_404(Product, pk=request.POST["choice"])
-        return render(request, "stock/delete.html",{
-            'product' : product
-        })
+    except (KeyError, Product.DoesNotExist):
+                return render(request, "stock/index.html", {
+                    'product_list':product_list,
+                        "error_message": "No elegiste un articulo"
+                })
+    else:
+
+        if request.POST["action"] == "Editar":
+            return render(request, "stock/update.html",{
+                'product' : product
+            })
+        elif request.POST["action"] == "Eliminar":
+            return render(request, "stock/delete.html",{
+                'product' : product
+            })
 
 def confirm_detele(request, product_id):
     if request.POST["action"] == "Eliminar":
         product = get_object_or_404(Product, pk=product_id)
         product.delete()
-        return render(request, "stock/product_deleted.html",{
-            'message':'Eliminado Satisfactoriamente'
-        })
+        return render(request, "stock/product_deleted.html",{})
     else:
         return HttpResponseRedirect(reverse("stock:index"))
