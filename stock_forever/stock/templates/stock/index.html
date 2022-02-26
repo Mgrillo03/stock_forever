@@ -15,45 +15,59 @@
 <body>
     {% if product_list %}
         <header>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="#">| Stock</a></li>
+                    <li><a href="#">Ventas</a></li>
+                    <li><a href="#">Compras</a></li>
+                    <li><a href="#">Clientes</a></li>
+                    <li><a href="#">Proveedores</a></li>
+                    <li><a href="#">Estadisticas</a></li>
+                    <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
+                </ul>
+            </nav>
+
             <h1 class="titulo">Productos en Stock</h1>
         </header>
         <main>           
     
         <form action="{% url 'stock:update_or_delete'%}" method="post" class="main-form">
             {% csrf_token %}
-            <table>
-                <tr>
-                <td >-</td>
-                <th ><strong>Nombre </strong></th>
-                <th ><strong> Categoria </strong></th>
-                <th ><strong> Material </strong></th>
-                <th ><strong> Stock -</strong></th>
-                <th ><strong> Costo - </strong></th>
-                <th ><strong> Precio Venta - </strong></th>
-                <th ><strong> Precio Sug </strong></th>
-                </tr>
-           
-                {% for choice in product_list  %}
-                        <tr>
-                        <td><input 
-                            type="radio" 
-                            name="choice" 
-                            id="choice{{ forloop.counter }}"
-                            value="{{choice.id}}"></td>
-                        <label for="choice{{ forloop.counter }}">
-                            
-                            <td>{{choice.name}}</td>
-                            <td>{{choice.category}}</td>
-                            <td>{{choice.material}}</td>                     
-                            <th>{{choice.stock}}</th>
-                            <td>{{choice.price}}$</td>
-                            <td>{{choice.sell_price}}$ </td>
-                            <td>{{choice.sug_price}}$</td>
-                            </tr>
-                        </label>      
-                {% endfor %}  
-                
-            </table>
+            <div class="table-container">
+                <table class="main-table">
+                    <tr>
+                    <td >-</td>
+                    <th id="nombre"><strong>Nombre </strong></th>
+                    <th ><strong> Categoria </strong></th>
+                    <th ><strong> Material </strong></th>
+                    <th ><strong> Stock -</strong></th>
+                    <th ><strong> Costo - </strong></th>
+                    <th ><strong> Precio Venta - </strong></th>
+                    <th ><strong> Precio Sug </strong></th>
+                    </tr>
+            
+                    {% for choice in product_list  %}
+                            <tr class="main-table__row">
+                            <td><input 
+                                type="radio" 
+                                name="choice" 
+                                id="choice{{ forloop.counter }}"
+                                value="{{choice.id}}"></td>
+                            <label for="choice{{ forloop.counter }}">
+                                
+                                <td>{{choice.name}}</td>
+                                <td>{{choice.category}}</td>
+                                <td>{{choice.material}}</td>                     
+                                <td class="td-stock">{{choice.stock}}</td>
+                                <td>{{choice.price}}$</td>
+                                <td>{{choice.sell_price}}$ </td>
+                                <td>{{choice.sug_price}}$</td>
+                                </tr>
+                            </label>      
+                    {% endfor %}  
+                    
+                </table>
+            </div>
 
             {% if error_message %}
                     <p><strong>{{error_message}}</strong></p>   
@@ -61,11 +75,16 @@
 
             <input type="submit" name="action" value="Eliminar">
             <input type="submit" name="action" value="Editar">
-            <a href="{% url 'stock:new'%}" class="button_grillo">Nuevo articulo</a>
+            <a href="{% url 'stock:new'%}" class="button_grillo" >Nuevo Articulo</a>
             
         </form>
         
         
+        <div class="table-container">
+            
+
+
+        </div>
 
         
 
@@ -74,10 +93,4 @@
         <p>No elements are available.</p>
     {% endif %}
     
-
-
-    
-    <footer>
-        <a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a>
-    </footer>
 </body>
