@@ -58,7 +58,7 @@ def update_or_delete(request):
     except (KeyError, Product.DoesNotExist):
                 return render(request, "stock/index.html", {
                     'product_list':product_list,
-                        "error_message": "No elegiste un articulo"
+                    "error_message": "No elegiste un articulo"
                 })
     else:
 

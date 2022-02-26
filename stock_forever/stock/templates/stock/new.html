@@ -6,15 +6,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'stock/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'stock/style_g.css' %}">
     <title>Agregar nuevo articulo</title>
-    <link rel="stylesheet" href="{% static 'stock/style.css' %}">
 </head>
 <body>
+    <header>
+        <h1 class="titulo">Nuevo artículo</h1>
+    </header>
     <div class="stock">
+        
 
         <div class="form-container">
-            <h1 class="titulo">Nuevo artículo</h1>
-            <form action="{% url 'stock:add'%}" method="post" class="form">
+            
+            <form action="{% url 'stock:add'%}" method="post" class="main-form-new">
                 {% csrf_token %}
                <label for="name" class="label">Nombre: </label> 
                <input   type="text" 
@@ -39,7 +44,8 @@
        
                <label for="material" class="label">Material:</label> 
                <input  list="material-list" 
-                       name="material"  
+                       name="material" 
+                       class = "input"
                        placeholder="Selccione Opcion.."
                        required/>
                <datalist id="material-list">
@@ -76,10 +82,11 @@
                         value="{{sell_price.id}}"/>
                
        
-                <input type="submit" value="Agregar" class="boton_agregar"><br>
-                <a href="{% url 'stock:index' %}">Cancelar</a>
+                <input type="submit" value="Agregar" class="button_grillo">
+                <a href="{% url 'stock:index' %}" class="button_grillo">Cancelar</a>
            </form>
         </div>
+
         
     </div>
     
