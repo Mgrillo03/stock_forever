@@ -17,7 +17,7 @@
         <header>
             <nav>
                 <ul class="main-nav">
-                    <li><a href="#">| Stock</a></li>
+                    <li><a href="{% url 'stock:index'%}">| Stock</a></li>
                     <li><a href="#">Ventas</a></li>
                     <li><a href="#">Compras</a></li>
                     <li><a href="#">Clientes</a></li>
@@ -79,18 +79,18 @@
             
         </form>
         
-        
-        <div class="table-container">
-            
-
-
-        </div>
-
+    
         
 
         </main>
     {% else %}
         <p>No elements are available.</p>
     {% endif %}
+
+    <footer>
+        {% comment %} <div class="image-container"><img src="{% static 'stock/images/logo.png' %}" alt="">
+
+        </div> {% endcomment %}
+    </footer>
     
 </body>
