@@ -89,10 +89,10 @@ nav{
     display: flex;
     flex-direction: column;
     height: 70%;
-    background: rgb(241, 205, 241);
+    background: transparent;
     
     border: 2px solid #292a2c;
-    border-radius: 5px;
+    border-radius: 14px;
     padding: 10px;
     margin-bottom: 20px; 
 }
@@ -127,6 +127,11 @@ input[type="submit"]{
     margin-top: 10px;
     font-size: 20px;
 }
+
+input[type="submit"]:hover{
+    background: rgba(244, 201, 248, 0.76);
+    cursor:pointer;
+}
 .input{
     width: 80%;
 }
@@ -150,6 +155,10 @@ input[type="submit"]{
     flex-direction: column;
     text-decoration: none;
 }
+.button_grillo:hover{
+    background: rgba(244, 201, 248, 0.76);
+    cursor:pointer;
+}
 .table-container{
     overflow: scroll;
     height: 250px;
@@ -172,6 +181,7 @@ input[type="submit"]{
 .main-table__row:hover{
     background: rgba(244, 201, 248, 0.76);
     border: 2px #292a2c !important;
+
 }
 
 .main-table tr th{
