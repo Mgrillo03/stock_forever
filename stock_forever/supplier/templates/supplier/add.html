@@ -25,11 +25,22 @@
                 <li><a href="#">Estadisticas</a></li>
                 <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
             </ul>
-        </nav>    
-        <h1 class="titulo">Cambios guardados Satisfactoriamente {{name}}</h1>
+        </nav>
+        <h1 class="titulo">Proveedor Creado Correctamente</h1>
     </header>
     <main>
-    <a href="{% url 'clients:index' %}" class="button_grillo">Volver a clientes</a>
+    <div class="added">
+        nombre: {{supplier.name}} <br>
+        Direccion: {{supplier.address}} <br>
+        Telefono: {{supplier.tlf}} <br>
+        Deuda: {{supplier.debt}} 
+        </div>
+        <a href="{% url 'supplier:index' %}" class="button_grillo">Volver a proveedores</a>
     </main>
+    
+    
+
+
+
 </body>
 </html>

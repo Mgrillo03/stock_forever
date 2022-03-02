@@ -137,7 +137,7 @@ label {
 
 input[type="submit"]{
     background: transparent;
-    color: #292a2c;
+    color: #612b6e;
     border-radius: 4px;
     border: 1px solid #612b6e77;
     
@@ -165,7 +165,7 @@ input[type="submit"]:hover{
     
     /* background-color: mediumorchid; */
     background: #eee;
-    color: #292a2c;
+    color: #612b6e;
     /* color: #292a2c; */
     border-radius: 5px;
     border: 1px solid #612b6e77;

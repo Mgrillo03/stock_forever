@@ -26,10 +26,18 @@
                 <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
             </ul>
         </nav>    
-        <h1 class="titulo">Cambios guardados Satisfactoriamente {{name}}</h1>
-    </header>
+    <h1 class="titulo">Estas a punto de eliminar al proveedor: {{supplier.name}}</h1>
+    </header>    
     <main>
-    <a href="{% url 'clients:index' %}" class="button_grillo">Volver a clientes</a>
+    <div>
+        <h6 class="titulo">estas seguro que deseas continuar?</h6>
+        <form action="{% url 'supplier:confirm_delete' supplier.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" name="action" value="Eliminar">
+            <input type="submit" name="action" value="Cancelar">
+        </form>
+    </div>
     </main>
+    
 </body>
 </html>

@@ -30,12 +30,12 @@
                 </ul>
             </nav>
 
-            <h1 class="titulo">Clientes</h1>
+            <h1 class="titulo">Proveedores</h1>
         </header>
-    {% if clients_list %}
+    {% if supplier_list %}
         <main>           
     
-        <form action="{% url 'clients:update_or_delete'%}" method="post" class="main-form">
+        <form action="{% url 'supplier:update_or_delete'%}" method="post" class="main-form">
             {% csrf_token %}
             <div class="table-container">
                 <table class="main-table">
@@ -47,7 +47,7 @@
                     <th ><strong> Deuda </strong></th>
                     </tr>
             
-                    {% for choice in clients_list  %}
+                    {% for choice in supplier_list  %}
                             <tr class="main-table__row">
                             <td><input 
                                 type="radio" 
@@ -73,7 +73,7 @@
 
             <input type="submit" name="action" value="Eliminar">
             <input type="submit" name="action" value="Editar">
-            <a href="{% url 'clients:new'%}" class="button_grillo" >Nuevo Cliente</a>
+            <a href="{% url 'supplier:new'%}" class="button_grillo" >Nuevo Proveedor</a>
             
         </form>
         
@@ -82,8 +82,8 @@
 
         </main>
     {% else %}
-        <p class="titulo">No elements are available.</p>
-        <a href="{% url 'clients:new'%}" class="button_grillo" >Nuevo Cliente</a>
+        <p class="titulo">No hay proveedores.</p>
+        <a href="{% url 'supplier:new'%}" class="button_grillo" >Nuevo Proveedor</a>
     {% endif %}
 
     <footer>
