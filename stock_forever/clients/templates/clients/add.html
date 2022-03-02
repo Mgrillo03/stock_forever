@@ -25,15 +25,22 @@
                 <li><a href="#">Estadisticas</a></li>
                 <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
             </ul>
-        </nav>    
-    <h1 class="titulo">Estas a punto de eliminar el articulo: {{product.name}}</h1>
-    </header>    
-    <h6 class="titulo">estas seguro que deseas continuar?</h6>
-    <form action="{% url 'stock:confirm_delete' product.id %}" method="post">
-        {% csrf_token %}
-        <input type="submit" name="action" value="Eliminar">
-        <input type="submit" name="action" value="Cancelar">
-    </form>
+        </nav>
+        <h1 class="titulo">Cliente Creado Correctamente</h1>
+    </header>
+    <main>
+    <div class="added">
+        nombre: {{client.name}} <br>
+        Direccion: {{client.address}} <br>
+        Telefono: {{client.tlf}} <br>
+        Deuda: {{client.debt}} 
+        </div>
+        <a href="{% url 'clients:index' %}" class="button_grillo">Volver a clientes</a>
+    </main>
     
+    
+
+
+
 </body>
 </html>

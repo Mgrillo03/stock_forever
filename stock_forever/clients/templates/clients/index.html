@@ -13,7 +13,7 @@
     
 </head>
 <body>
-    {% if product_list %}
+    
         <header>
             <nav>
                 <figure>
@@ -30,26 +30,24 @@
                 </ul>
             </nav>
 
-            <h1 class="titulo">Productos en Stock</h1>
+            <h1 class="titulo">Clientes</h1>
         </header>
+    {% if clients_list %}
         <main>           
     
-        <form action="{% url 'stock:update_or_delete'%}" method="post" class="main-form">
+        <form action="{% url 'clients:update_or_delete'%}" method="post" class="main-form">
             {% csrf_token %}
             <div class="table-container">
                 <table class="main-table">
                     <tr>
                     <td >-</td>
                     <th id="nombre"><strong>Nombre </strong></th>
-                    <th ><strong> Categoria </strong></th>
-                    <th ><strong> Material </strong></th>
-                    <th ><strong> Stock -</strong></th>
-                    <th ><strong> Costo - </strong></th>
-                    <th ><strong> Precio Venta - </strong></th>
-                    <th ><strong> Precio Sug </strong></th>
+                    <th ><strong> Direccion </strong></th>
+                    <th ><strong> Telefono </strong></th>
+                    <th ><strong> Deuda </strong></th>
                     </tr>
             
-                    {% for choice in product_list  %}
+                    {% for choice in clients_list  %}
                             <tr class="main-table__row">
                             <td><input 
                                 type="radio" 
@@ -59,12 +57,9 @@
                             <label for="choice{{ forloop.counter }}">
                                 
                                 <td>{{choice.name}}</td>
-                                <td>{{choice.category}}</td>
-                                <td>{{choice.material}}</td>                     
-                                <td class="td-stock">{{choice.stock}}</td>
-                                <td>{{choice.price}}$</td>
-                                <td>{{choice.sell_price}}$ </td>
-                                <td>{{choice.sug_price}}$</td>
+                                <td>{{choice.address}}</td>
+                                <td>{{choice.tlf}}</td>
+                                <td>{{choice.debt}}$</td>
                                 </tr>
                             </label>      
                     {% endfor %}  
@@ -78,7 +73,7 @@
 
             <input type="submit" name="action" value="Eliminar">
             <input type="submit" name="action" value="Editar">
-            <a href="{% url 'stock:new'%}" class="button_grillo" >Nuevo Articulo</a>
+            <a href="{% url 'clients:new'%}" class="button_grillo" >Nuevo Cliente</a>
             
         </form>
         
@@ -87,11 +82,11 @@
 
         </main>
     {% else %}
-        <p>No elements are available.</p>
+        <p class="titulo">No elements are available.</p>
+        <a href="{% url 'clients:new'%}" class="button_grillo" >Nuevo Cliente</a>
     {% endif %}
 
     <footer>
-
     </footer>
     
 </body>

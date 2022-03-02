@@ -9,7 +9,23 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 class="titulo">Eliminado Satisfactoriamente</h1>
+    <header>
+        <nav>
+            <figure>
+                <a href="{% url 'stock:index'%}"><img src="{% static 'stock/images/logo_negro.png'  %}" alt=" logo"class="image"></a>
+            </figure>
+            <ul class="main-nav">
+                <li><a href="{% url 'stock:index'%}">| Stock</a></li>
+                <li><a href="#">Ventas</a></li>
+                <li><a href="#">Compras</a></li>
+                <li><a href="{% url 'clients:index'%}">Clientes</a></li>
+                <li><a href="#">Proveedores</a></li>
+                <li><a href="#">Estadisticas</a></li>
+                <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
+            </ul>
+        </nav>    
+        <h1 class="titulo">Eliminado Satisfactoriamente</h1>
+    </header>
 
     <a href="{% url 'stock:index' %}"> Volver a inicio</a>
 </body>
