@@ -273,10 +273,19 @@ footer{
     text-decoration: none;
     font-size: 20px;
 }
+
 .image{
     width: 150px;
     height: auto;
 }
+
 figure{
     float: left;
+}
+
+.sell-product{
+    padding: 10px;
+    display: inline-block;
+    border-bottom: 2px solid #612b6e77;
+
 }
