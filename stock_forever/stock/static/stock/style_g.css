@@ -192,7 +192,15 @@ input[type="submit"]:hover{
     height: 100%;
     width: 100%;
 }
+.main-table-detail{
+    border: 1px solid rgb(200, 200, 200);
+    background: transparent;
+    padding: 4px;    
+    height: 100%;
+    width: 100%;
+}
 .main-table__row{
+    
     border: 2px #292a2c !important;
 }
 .main-table__row:hover{
@@ -216,6 +224,25 @@ input[type="submit"]:hover{
     border: 7px #292a2c;
     width: 20px;
     height: 10px;
+}
+.main-table__row_r{
+    padding-top: 15px;
+    padding: 30px;
+    text-align: right;
+}
+.main-table__row_l{
+    padding-top: 15px;
+    padding: 20px;
+    text-align: left;
+}
+
+.main-table__row_r_t{
+    padding: 30px;
+    text-align: right;
+}
+.main-table__row_l_t{
+    padding: 20px;
+    text-align: left;
 }
 
 #nombre{

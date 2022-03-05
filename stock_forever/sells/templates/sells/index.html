@@ -21,7 +21,7 @@
                 </figure>
                 <ul class="main-nav">
                     <li><a href="{% url 'stock:index'%}">| Stock</a></li>
-                    <li><a href="#">Ventas</a></li>
+                    <li><a href="{% url 'sells:index'%}">Ventas</a></li>
                     <li><a href="#">Compras</a></li>
                     <li><a href="{% url 'clients:index'%}">Clientes</a></li>
                     <li><a href="{% url 'supplier:index'%}">Proveedores</a></li>
@@ -35,7 +35,7 @@
     {% if sells_list %}
         <main>           
     
-        <form action="{% url 'sells:new_1'%}" method="post" class="main-form">
+        <form action="{% url 'sells:detail_update_delete'%}" method="post" class="main-form">
             {% csrf_token %}
             <div class="table-container">
                 <table class="main-table">
@@ -43,7 +43,6 @@
                     <td >-</td>
                     <th id="nombre"><strong>Cliente </strong></th>
                     <th ><strong> Fecha </strong></th>
-                    <th ><strong> Articulo </strong></th>
                     <th ><strong> Total </strong></th>
                     </tr>
             
@@ -58,7 +57,6 @@
                                 
                                 <td>{{choice.client.name}}</td>
                                 <td>{{choice.sell_date}}</td>
-                                <td>{{choice.id}}</td>
                                 <td>{{choice.total}}$</td>
                                 </tr>
                             </label>      
@@ -71,9 +69,10 @@
                     <p><strong>{{error_message}}</strong></p>   
             {% endif %}
 
+            <input type="submit" name="action" value="Detalle">
             <input type="submit" name="action" value="Eliminar">
             <input type="submit" name="action" value="Editar">
-            <a href="{% url 'clients:new'%}" class="button_grillo" >Nuevo Cliente</a>
+            <a href="{% url 'clients:new'%}" class="button_grillo" >Nueva Venta</a>
             
         </form>
         
