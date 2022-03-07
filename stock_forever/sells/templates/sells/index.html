@@ -41,9 +41,10 @@
                 <table class="main-table">
                     <tr>
                     <td >-</td>
+                    <th class="main-table__pk">Cod</th>
                     <th id="nombre"><strong>Cliente </strong></th>
                     <th ><strong> Fecha </strong></th>
-                    <th ><strong> Total </strong></th>
+                    <th class="main-table__col_total"><strong> Total </strong></th>
                     </tr>
             
                     {% for choice in sells_list  %}
@@ -54,10 +55,11 @@
                                 id="choice{{ forloop.counter }}"
                                 value="{{choice.id}}"></td>
                             <label for="choice{{ forloop.counter }}">
-                                
+
+                                <td>{{choice.pk}}</td>                                
                                 <td>{{choice.client.name}}</td>
                                 <td>{{choice.sell_date}}</td>
-                                <td>{{choice.total}}$</td>
+                                <td id="main-table__col_total">{{choice.total}}$</td>
                                 </tr>
                             </label>      
                     {% endfor %}  
@@ -72,7 +74,7 @@
             <input type="submit" name="action" value="Detalle">
             <input type="submit" name="action" value="Eliminar">
             <input type="submit" name="action" value="Editar">
-            <a href="{% url 'clients:new'%}" class="button_grillo" >Nueva Venta</a>
+            <a href="{% url 'sells:new_1'%}" class="button_grillo" >Nueva Venta</a>
             
         </form>
         
@@ -82,7 +84,7 @@
         </main>
     {% else %}
         <p class="titulo">No elements are available.</p>
-        <a href="{% url 'clients:new'%}" class="button_grillo" >Nuevo Cliente</a>
+        <a href="{% url 'sells:new_1' %}" class="button_grillo" >Nuevo Cliente</a>
     {% endif %}
 
     <footer>

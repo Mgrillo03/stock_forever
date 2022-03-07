@@ -33,45 +33,35 @@
     <div class="stock">        
         <div class="form-container">
            
-            <form action="{% url 'clients:save_update' client.id%}" method="post" class="main-form-new">
+            <form action="{% url 'sells:save_update'sell.id%}" method="post" class="main-form-new">
                 {% csrf_token %}
-                <label for="name" class="label">Nombre: </label> 
-                <input   type="text" 
-                         id="name" 
-                         placeholder="Nombre del cliente" 
-                         class="input"
-                         name="name"
-                         value="{{client.name}}"
-                         maxlength = "200"
-                         required/>
- 
-                <label for="address" class="label">Direccion: </label>
-                <input   type="text" 
-                         id="address"  
-                         placeholder="Direccion" 
-                         name="address" 
-                         value="{{client.address}}" 
-                         class="input"
-                         maxlength = "200"
-                         required/>
-                
-                <label for="tlf" class="label">Telefono: </label>
-                <input   type="text" 
-                         id="tlf"  
-                         placeholder="Numero de Telefono" 
-                         class="input"
-                         name="tlf"
-                         value="{{client.tlf}}"
-                         maxlength = "15"
-                         required/>               
-                
-                <label for="debt" class="label">Deuda: </label>
-                <input   type="text" 
-                         id="debt" 
-                         placeholder="Deuda del Cliente" 
-                         class="input"
-                         name="debt"
-                         value="{{client.debt}}"/>
+                <label for="client" class="label">Comprador:</label>
+                <input   list="client-list" name="client" class="input" value{{sell.client}}>
+                    <datalist id="client-list">
+                        {% for client in clients_list  %}
+                             <option value="{{client.name}}"></option>
+                    
+                        {% endfor %}  
+                    </datalist>
+
+                {% for option in quantity_list  %}
+                <div class="sell-product">
+                    <label for="product_{{forloop.counter}}" class="label">Articulo {{forloop.counter}} </label>
+                    <input   list="products-list" name="product_{{forloop.counter}}" class="input" placeholder="Selccione Opcion..">
+                        <datalist id="products-list">
+                            {% for product in product_list  %}
+                                <option value="{{product.name}}">{{product.name}} | {{product.sell_price}}$</option>
+                        
+                            {% endfor %}  
+                        </datalist>
+                    
+                    <label for="quantity_{{forloop.counter}}" class="label">Cantidad:</label>
+                    <input  type="input" name="quantity_{{forloop.counter}}" class="input" value="{{quantity.id}}">      
+
+                    <label for="price_{{forloop.counter}}" class="label">Precio:</label>
+                    <input  type="input" name="price_{{forloop.counter}}" class="input" value="{{price.id}}">                        
+                    
+                </div>
        
                 <input type="submit" value="Guardar" class="boton_agregar">
                 <a href="{% url 'clients:index' %}" class="button_grillo">Cancelar</a>

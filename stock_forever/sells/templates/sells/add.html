@@ -18,7 +18,7 @@
             </figure>
             <ul class="main-nav">
                 <li><a href="{% url 'stock:index'%}">| Stock</a></li>
-                <li><a href="#">Ventas</a></li>
+                <li><a href="{% url 'sells:index'%}">Ventas</a></li>
                 <li><a href="#">Compras</a></li>
                 <li><a href="{% url 'clients:index'%}">Clientes</a></li>
                 <li><a href="{% url 'supplier:index'%}">Proveedores</a></li>
@@ -26,16 +26,25 @@
                 <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
             </ul>
         </nav>
-        <h1 class="titulo">Cliente Creado Correctamente</h1>
+        <h1 class="titulo">Venta Creada Correctamente</h1>
     </header>
     <main>
     <div class="added">
-        nombre: {{client.name}} <br>
-        Direccion: {{client.address}} <br>
-        Telefono: {{client.tlf}} <br>
-        Deuda: {{client.debt}} 
-        </div>
-        <a href="{% url 'clients:index' %}" class="button_grillo">Volver a clientes</a>
+        nombre: {{sell.client.name}} <br>
+        Total: {{sell.total}} <br>
+        
+
+        {% for product in product_list %}
+        Articulo {{forloop.counter}}: <br>
+        Nombre : {{product.product}} <br>
+        Cantidad : {{product.quantity}} <br>
+        Precio : {{product.price}} <br>
+        Total : {{product.total}} <br>
+        {% endfor %}
+
+        <br> Total Venta: {{sell.total}}
+    </div>
+        <a href="{% url 'sells:index' %}" class="button_grillo">Volver a ventas</a>
     </main>
     
     

@@ -134,6 +134,13 @@ label {
     margin-bottom: 4 px;
     color: purple;
 }
+span{
+    font-weight: bold;
+    font-size: 14 px;
+    margin-top: 10px;
+    margin-bottom: 4 px;
+    color: purple;
+}
 
 input[type="submit"]{
     background: transparent;
@@ -243,6 +250,15 @@ input[type="submit"]:hover{
 .main-table__row_l_t{
     padding: 20px;
     text-align: left;
+}
+
+.main-table__pk{
+    width: 5%;
+}
+#main-table__col_total{
+    padding-right: 20px;
+    text-align: right;
+    width: 20%;
 }
 
 #nombre{

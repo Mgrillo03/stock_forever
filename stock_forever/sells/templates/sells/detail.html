@@ -36,7 +36,7 @@
 
     <form action="{% url 'sells:new_1'%}" method="post" class="main-form">
         {% csrf_token %}
-        <span>Cliente: {{sell.client}}</span><br><br>
+        <span >Cliente: {{sell.client}} Cod: {{sell.pk}}</span> <br><br>
         <span>Fecha: {{sell.sell_date}}</span><br><br>
         <div class="table-container">
             <table class="main-table-detail">
@@ -61,7 +61,7 @@
             </table>
         </div>
         <div>
-            Total: {{sell.total}}
+            Total: {{sell.total}}$
         </div>
 
         
