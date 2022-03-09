@@ -9,7 +9,7 @@ urlpatterns = [
     #ex: /sells/
     path("",  views.index, name= "index"),
     #ex: /sells/5/update_saved/
-    #path("<int:sell_id>/update/saved", views.save_update, name= "save_update"),
+    path("<int:sell_id>/update/saved", views.save_update, name= "save_update"),
     # #ex: /sells/5/delete/   falta actualizar
     path("detail-update-delete/",  views.detail_update_delete, name= "detail_update_delete"),
     # #ex: sells/5/

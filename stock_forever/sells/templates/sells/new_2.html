@@ -14,7 +14,7 @@
     <header>
         <nav>
             <figure>
-                <a href="{% url 'stock:add'%}"><img src="{% static 'stock/images/logo_negro.png'  %}" alt=" logo"class="image"></a>
+                <a href="{% url 'stock:index'%}"><img src="{% static 'stock/images/logo_negro.png'  %}" alt=" logo"class="image"></a>
             </figure>
             <ul class="main-nav">
                 <li><a href="{% url 'stock:index'%}">| Stock</a></li>
@@ -31,40 +31,42 @@
     <div class="stock">
         
 
-        <div class="form-container">
+        <div class="form-container-sell">
             
             <form action="{% url 'sells:add'%}" method="post" class="main-form-new">
                 {% csrf_token %}
 
-                <label for="client" class="label">Comprador:</label>
-                <input  type="input" name="client" class="input" value="{{client_name}}" readonly>
-                <input type="hidden" name="product_quantity" value="{{product_quantity}}">
+                <label for="client" class="label">Comprador: {{client_name}}</label>
                 
+                <input type="hidden" name="client" value="{{client_name}}">
+                <input type="hidden" name="product_quantity" value="{{product_quantity}}">
 
                 {% for option in quantity_list  %}
                     <div class="sell-product">
                         <label for="product_{{forloop.counter}}" class="label">Articulo {{forloop.counter}} </label>
-                        <input   list="products-list" name="product_{{forloop.counter}}" class="input" placeholder="Selccione Opcion..">
-                            <datalist id="products-list">
-                                {% for product in product_list  %}
-                                    <option value="{{product.name}}">{{product.name}} | {{product.sell_price}}$</option>
-                            
-                                {% endfor %}  
-                            </datalist>
+                        <input   list="products-list" name="product_{{forloop.counter}}" class="input-sell" placeholder="Selccione Opcion.." required>
+                        <datalist id="products-list">
+                            {% for product in products_list  %}
+                                <option value="{{product.name}}">{{product.name}} | {{product.sell_price}}$</option>
+                        
+                            {% endfor %}  
+                        </datalist>
                         
                         <label for="quantity_{{forloop.counter}}" class="label">Cantidad:</label>
-                        <input  type="input" name="quantity_{{forloop.counter}}" class="input" value="{{quantity.id}}">      
+                        <input  type="input" name="quantity_{{forloop.counter}}" class="input-sell-s" value="{{quantity.id}}" required>      
 
                         <label for="price_{{forloop.counter}}" class="label">Precio:</label>
-                        <input  type="input" name="price_{{forloop.counter}}" class="input" value="{{price.id}}">                        
+                        <input  type="input" name="price_{{forloop.counter}}" class="input-sell-s" value="{{price.id}}" required>                        
                         
                     </div>
                 {% endfor %}
+                <label for="payed" class="label">Pagado:</label>
+                <input  type="input" name="payed" class="input-sell-s" value=0 required>   
 
                
        
                 <input type="submit" value="Agregar" class="button_grillo">
-                <a href="#" class="button_grillo">Cancelar</a>
+                <a href="{% url 'sells:index'%}" class="button_grillo">Cancelar</a>
            </form>
         </div>
 

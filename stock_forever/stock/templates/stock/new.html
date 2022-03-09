@@ -45,7 +45,7 @@
                         required/>
 
                <label for="category" class="label">Categoria:</label>
-               <input   list="category-list" name="category" class="input" placeholder="Selccione Opcion..">
+               <input   list="category-list" name="category" class="input" placeholder="Selccione Opcion.." required>
                <datalist id="category-list">
                    <option value="Anillo"></option>
                    <option value="Pulsera"></option>
@@ -93,7 +93,8 @@
                         placeholder="Precio al publico" 
                         class="input"
                         name="sell_price"
-                        value="{{sell_price.id}}"/>
+                        value="{{sell_price.id}}"
+                        required/>
                
        
                 <input type="submit" value="Agregar" class="button_grillo">

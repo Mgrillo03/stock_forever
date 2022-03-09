@@ -1,14 +1,9 @@
-from cgitb import reset
-from http import client
-from itertools import product
-import re
-from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
 
-from .models import Sell, Sell_Product
+from .models import Sell
 from stock.models import Product
 from clients.models import Client
 
@@ -23,7 +18,12 @@ def index(request):
 
 
 def detail(request, sell_id):
-    pass
+    sell = get_object_or_404(Sell, pk=sell_id)
+    sell_product_set = sell.sell_product_set.all()
+    return render(request, "sells/detail.html",{
+        'sell': sell,
+        'sell_product_set': sell_product_set
+    })
 
 
 
@@ -35,17 +35,14 @@ def new_1(request):
     })
 
 def new_2(request):
-    clients_list = Client.objects.all()
     products_list = Product.objects.all()
     product_quantity = request.POST["quantity"]
-    if request.POST["client"]:
-        client_name = request.POST["client"]
-    else: 
-        client_name = ""
+    client_name = request.POST["client"]
     quantity = request.POST["quantity"]
+
     quantity_list = range(int(quantity))
-    return render(request, "sells/new_2.html",{
-        'clients_list' : clients_list,
+
+    return render(request, "sells/new_2.html",{        
         'client_name' : client_name,
         'products_list' : products_list,
         'quantity_list' : quantity_list,
@@ -67,6 +64,8 @@ def add(request):
         
         var = "quantity_"+str(i+1)
         quantity = request.POST[var]
+        product.stock -= int(quantity)
+        product.save()
 
         var = "price_"+str(i+1)
         price = request.POST[var]
@@ -80,6 +79,10 @@ def add(request):
     sell.save()
     products_list = sell.sell_product_set.all()
 
+    payed = request.POST["payed"]
+    substraction = suma - float(payed)
+    client.debt += substraction
+    client.save()
 
     return render(request, "sells/add.html",{
         'sell':sell,
@@ -99,8 +102,16 @@ def detail_update_delete(request):
     else:
 
         if request.POST["action"] == "Editar":
+            products_list = Product.objects.all()
+            clients_list = Client.objects.all()
+            sell_product_set = sell.sell_product_set.all()
+
             return render(request, "sells/update.html",{
-                'sell' : sell
+                'sell' : sell,
+                'products_list' : products_list,
+                'clients_list' : clients_list,
+                'sell_product_set' : sell_product_set
+
             })
         elif request.POST["action"] == "Eliminar":
             return render(request, "sells/delete.html",{
@@ -118,13 +129,47 @@ def detail_update_delete(request):
         
 def save_update(request, sell_id):
     sell = get_object_or_404(Sell, pk=sell_id)
-    sell.name = request.POST["name"]
-    sell.address = request.POST["address"]
-    if request.POST["tlf"]:
-        sell.tlf = request.POST["tlf"]
-    if request.POST["debt"]:
-        sell.debt = request.POST["debt"]
+    client_name = request.POST["client"]
+    client = get_object_or_404(Client, name= client_name)
+    sell.client = client
     sell.save()
+
+    products_totals = sell.product.count()
+    products_list = []
+    for i in range(products_totals):
+        var = 'product_'+str(i+1)
+        name = request.POST[var]
+        product = get_object_or_404(Product, name = name)
+        products_list.append(product)
+
+        var = 'quantity_'+str(i+1)
+        quantity = request.POST[var]
+        product.stock += int(quantity)
+        product.save()
+    sell.product.set(products_list)
+    suma = 0
+    for i in range(products_totals):
+        sell_detail = sell.sell_product_set.get(product=products_list[i])
+        var = 'quantity_'+str(i+1)
+        quantity = request.POST[var]
+        sell_detail.quantity = int(quantity)
+        product.stock -= int(quantity)
+        product.save()
+
+        var = 'price_'+str(i+1)
+        price = request.POST[var]
+        sell_detail.price = float(price)
+
+        total = float(price) * float(quantity)
+        sell_detail.total = total
+        sell_detail.save()
+
+        suma += total   
+    
+    sell.total = suma
+    
+    sell.save()    
+        
     return render(request, "sells/update_saved.html",{
         'sell' : sell
     })

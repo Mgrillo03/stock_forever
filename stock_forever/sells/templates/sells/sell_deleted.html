@@ -18,7 +18,7 @@
             </figure>
             <ul class="main-nav">
                 <li><a href="{% url 'stock:index'%}">| Stock</a></li>
-                <li><a href="#">Ventas</a></li>
+                <li><a href="{% url 'sells:index'%}">Ventas</a></li>
                 <li><a href="#">Compras</a></li>
                 <li><a href="{% url 'clients:index'%}">Clientes</a></li>
                 <li><a href="{% url 'supplier:index'%}">Proveedores</a></li>
@@ -29,7 +29,7 @@
         <h1 class="titulo">Eliminado Satisfactoriamente</h1>
     </header>
     <main>
-    <a href="{% url 'clients:index' %}" class="button_grillo"> Volver a inicio</a>
+    <a href="{% url 'sells:index' %}" class="button_grillo"> Volver a ventas</a>
     </main>
 </body>
 </html>

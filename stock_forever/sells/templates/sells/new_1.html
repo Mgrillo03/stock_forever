@@ -18,7 +18,7 @@
             </figure>
             <ul class="main-nav">
                 <li><a href="{% url 'stock:index'%}">| Stock</a></li>
-                <li><a href="#">Ventas</a></li>
+                <li><a href="{% url 'sells:index'%}">Ventas</a></li>
                 <li><a href="#">Compras</a></li>
                 <li><a href="{% url 'clients:index'%}">Clientes</a></li>
                 <li><a href="{% url 'supplier:index'%}">Proveedores</a></li>
@@ -37,7 +37,7 @@
                 {% csrf_token %}
 
                 <label for="client" class="label">Comprador:</label>
-                <input   list="client-list" name="client" class="input" placeholder="Selccione Opcion..">
+                <input   list="client-list" name="client" class="input" placeholder="Selccione Opcion.." required>
                     <datalist id="client-list">
                         {% for client in clients_list  %}
                              <option value="{{client.name}}"></option>
@@ -46,11 +46,11 @@
                     </datalist>
                 
                 <label for="quantity" class="label">Cantidad de Articulos:</label>
-                <input  type="input" name="quantity" class="input" value="1">
+                <input  type="input" name="quantity" class="input" value="1" required>
                                    
        
                 <input type="submit" value="Agregar" class="button_grillo">
-                <a href="#" class="button_grillo">Cancelar</a>
+                <a href="{% url 'sells:index'%}" class="button_grillo">Cancelar</a>
            </form>
         </div>
 

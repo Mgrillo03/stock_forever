@@ -18,7 +18,7 @@
             </figure>
             <ul class="main-nav">
                 <li><a href="{% url 'stock:index'%}">| Stock</a></li>
-                <li><a href="#">Ventas</a></li>
+                <li><a href="{% url 'sells:index'%}">Ventas</a></li>
                 <li><a href="#">Compras</a></li>
                 <li><a href="{% url 'clients:index'%}">Clientes</a></li>
                 <li><a href="{% url 'supplier:index'%}">Proveedores</a></li>
@@ -26,10 +26,11 @@
                 <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
             </ul>
         </nav>    
-        <h1 class="titulo">Cambios guardados Satisfactoriamente {{name}}</h1>
+        <h1 class="titulo">Cambios guardados Satisfactoriamente {{sell.client}}</h1>
     </header>
     <main>
-    <a href="{% url 'clients:index' %}" class="button_grillo">Volver a clientes</a>
+    
+    <a href="{% url 'sells:detail' sell.id %}" class="button_grillo">Volver a ventas</a>
     </main>
 </body>
 </html>
