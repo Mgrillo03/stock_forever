@@ -1,5 +1,5 @@
 # stock_forever
 
-Web aplication project that manages a stock of a store.
+Web aplication project to manage the data bases of an accessory store with Django.
 
-this project is meant to be a Django practice.
+The data showed in this version is not real. 
