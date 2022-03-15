@@ -35,7 +35,7 @@
     {% if sells_list %}
         <main>           
     
-        <form action="{% url 'sells:detail_update_delete'%}" method="post" class="main-form">
+        <form action="{% url 'sells:detail_update_delete' %}" method="post" class="main-form">
             {% csrf_token %}
             <div class="table-container">
                 <table class="main-table">

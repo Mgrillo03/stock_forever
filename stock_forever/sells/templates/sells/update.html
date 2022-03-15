@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'stock/reset.css' %}">
     <link rel="stylesheet" href="{% static 'stock/style_g.css' %}">
-    <title>Document</title>
+    <title>Forever</title>
     
 </head>
 <body>
@@ -63,6 +63,11 @@
                     
                 </div>
                 {% endfor %}
+
+                <div class="update_add">
+                    <a href="{% url 'sells:update_add' sell.id %}" ><img src="{% static 'stock/images/mas.png'  %}" alt=" agregar"class="image_add"></a>
+                    <a href="{% url 'sells:update_del' sell.id %}" ><img src="{% static 'stock/images/menos.png'  %}" alt=" agregar"class="image_add"></a>
+                </div>
        
                 <input type="submit" value="Guardar" class="boton_agregar">
                 <a href="{% url 'sells:index' %}" class="button_grillo">Cancelar</a>

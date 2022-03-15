@@ -1,3 +1,5 @@
+from itertools import product
+from multiprocessing import Condition
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -11,43 +13,32 @@ from clients.models import Client
 
 def index(request):
     sells_list = Sell.objects.all()
+    sell = Sell.objects.first()
     
     return render(request, "sells/index.html",{
         'sells_list' : sells_list
     })
 
-
-def detail(request, sell_id):
-    sell = get_object_or_404(Sell, pk=sell_id)
-    sell_product_set = sell.sell_product_set.all()
-    return render(request, "sells/detail.html",{
-        'sell': sell,
-        'sell_product_set': sell_product_set
-    })
-
-
-
 def new_1(request):
     clients_list = Client.objects.all()
      
-    return render(request, "sells/new_1.html",{
-        'clients_list' : clients_list   
+    return render(request, "sells/new.html",{
+        'clients_list' : clients_list,
+        'cond' : True
     })
 
 def new_2(request):
     products_list = Product.objects.all()
     product_quantity = request.POST["quantity"]
     client_name = request.POST["client"]
-    quantity = request.POST["quantity"]
+    quantity_list = range(int(product_quantity))
 
-    quantity_list = range(int(quantity))
-
-    return render(request, "sells/new_2.html",{        
+    return render(request, "sells/new.html",{        
         'client_name' : client_name,
         'products_list' : products_list,
         'quantity_list' : quantity_list,
-        'product_quantity' : product_quantity
-        
+        'product_quantity' : product_quantity,
+        'cond' : False        
     })
 
 def add(request): 
@@ -89,9 +80,9 @@ def add(request):
         'products_list': products_list
     })
     
-
 def detail_update_delete(request):    
     sells_list = Sell.objects.all()
+   
     try:
         sell = get_object_or_404(Sell, pk=request.POST["choice"])
     except (KeyError, Sell.DoesNotExist):
@@ -124,9 +115,50 @@ def detail_update_delete(request):
                 'sell_product_set': sell_product_set
             })
 
+def detail(request, sell_id):
+    sell = get_object_or_404(Sell, pk=sell_id)
+    sell_product_set = sell.sell_product_set.all()
+    return render(request, "sells/detail.html",{
+        'sell': sell,
+        'sell_product_set': sell_product_set
+    })
 
-            
-        
+def update_add(request, sell_id):
+    sell = get_object_or_404(Sell, pk=sell_id)
+    products_list = Product.objects.all()
+    sell_products = sell.product.all()
+    for i in products_list:
+        if i not in sell_products:
+            sell.product.add(i)
+            break    
+    sell.save()
+    clients_list = Client.objects.all()
+    sell_product_set = sell.sell_product_set.all()
+
+    return render(request, "sells/update.html",{
+        'sell' : sell,
+        'products_list' : products_list,
+        'clients_list' : clients_list,
+        'sell_product_set' : sell_product_set
+
+    })
+def update_del(request, sell_id):
+    sell = get_object_or_404(Sell, pk=sell_id)
+    clients_list = Client.objects.all()
+    products_list = Product.objects.all()
+    last_product = sell.product.last()   
+    sell.product.remove(last_product)
+    sell.save()    
+    sell_product_set = sell.sell_product_set.all()
+
+    return render(request, "sells/update.html",{
+        'sell' : sell,
+        'products_list' : products_list,
+        'clients_list' : clients_list,
+        'sell_product_set' : sell_product_set
+
+    })
+
 def save_update(request, sell_id):
     sell = get_object_or_404(Sell, pk=sell_id)
     client_name = request.POST["client"]

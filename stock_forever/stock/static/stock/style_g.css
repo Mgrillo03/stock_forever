@@ -141,6 +141,14 @@ label {
     color: purple;
 }
 
+.label-disabled {
+    font-weight: bold;
+    font-size: 14 px;
+    margin-top: 10px;
+    margin-bottom: 4 px;
+    color: rgb(129, 127, 129);
+}
+
 span{
     font-weight: bold;
     font-size: 14 px;
@@ -203,6 +211,50 @@ input[type="submit"]:hover{
 .button_grillo:hover{
     background: #d2b4deb2;
     cursor:pointer;
+}
+
+#button_grillo-disabled{
+    padding: 5px;
+    padding-top: 9px;
+    margin-top: 10px;
+    width: 30%;
+    height: 40px;
+    font-size: 20px;
+    
+    /* background-color: mediumorchid; */
+    background: rgb(223, 223, 223);
+    color: rgb(129, 127, 129);
+    /* color: #292a2c; */
+    border-radius: 5px;
+    border: 1px solid rgb(129, 127, 129);
+    
+    
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.button_add_del{
+    padding: 5px;
+    padding-top: 4px;
+    margin-top: 10px;
+    width: 25%;
+    height: 40px;
+    font-size: 15px;
+    
+    /* background-color: mediumorchid; */
+    background: #eee;
+    color: #29f33a;
+    /* color: #292a2c; */
+    border-radius: 5px;
+    border: 1px solid #612b6e77;
+    
+    
+    align-items: center;
+    /* display: flex;
+    flex-direction: column; */
+    text-decoration: none;
 }
 
 .table-container{
@@ -348,6 +400,11 @@ footer{
     height: auto;
 }
 
+.image_add{
+    width: 25px;
+    height: auto;
+}
+
 figure{
     float: left;
 }
@@ -357,4 +414,11 @@ figure{
     display: inline-block;
     border-bottom: 2px solid #612b6e77;
 
+}
+
+.update_add{
+    margin-top: 10px;
+    padding: 10px;
+    display: inline-block;
+    border-bottom: 2px solid #612b6e77;
 }

@@ -34,7 +34,7 @@
     </header>
     <main>           
 
-    <form action="{% url 'sells:detail_update_delete'%}" method="post" class="main-form">
+    <form action="{% url 'sells:detail_update_delete' %} " method="post" class="main-form">
         {% csrf_token %}
         <span >Cliente: {{sell.client}} Cod: {{sell.pk}}</span> <br><br>
         <span>Fecha: {{sell.sell_date}}</span><br><br>
@@ -57,6 +57,7 @@
                             </tr>
                             </label>      
                 {% endfor %}  
+                <td><input type="hidden" name="choice" id="choice" value="{{sell.pk}}"></td>
                 
             </table>
         </div>
