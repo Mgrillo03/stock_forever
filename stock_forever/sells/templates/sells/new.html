@@ -44,6 +44,7 @@
                         
                             {% endfor %}  
                         </datalist>
+                    {% if error_message %} {{error_message}} {% endif %}
                     
                     <label for="quantity" class="label">Cantidad de Articulos:</label>
                     <input  type="input" name="quantity" class="input-sell" value="1" required>

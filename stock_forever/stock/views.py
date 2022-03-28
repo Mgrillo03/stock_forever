@@ -56,10 +56,11 @@ def update_or_delete(request):
     try:
         product = get_object_or_404(Product, pk=request.POST["choice"])
     except (KeyError, Product.DoesNotExist):
-                return render(request, "stock/index.html", {
-                    'product_list':product_list,
-                    "error_message": "No elegiste un articulo"
-                })
+                return index(request)
+                # return render(request, "stock/index.html", {
+                #     'product_list':product_list,
+                #     "error_message": "No elegiste un articulo"
+                # })
     else:
 
         if request.POST["action"] == "Editar":

@@ -19,27 +19,36 @@ def index(request):
         'sells_list' : sells_list
     })
 
-def new_1(request):
+def new_1(request, error_message = ''):
     clients_list = Client.objects.all()
      
     return render(request, "sells/new.html",{
         'clients_list' : clients_list,
+        'error_message': error_message,
         'cond' : True
     })
 
 def new_2(request):
+    clients_list = Client.objects.all()
     products_list = Product.objects.all()
     product_quantity = request.POST["quantity"]
     client_name = request.POST["client"]
     quantity_list = range(int(product_quantity))
 
-    return render(request, "sells/new.html",{        
-        'client_name' : client_name,
-        'products_list' : products_list,
-        'quantity_list' : quantity_list,
-        'product_quantity' : product_quantity,
-        'cond' : False        
-    })
+    try:
+        client = Client.objects.get(name=client_name)
+    except (KeyError, Client.DoesNotExist):
+                error_message = 'El cliente ingresano no existe en la base de datos'
+                return new_1(request,error_message=error_message)
+    else:
+
+        return render(request, "sells/new.html",{        
+            'client_name' : client_name,
+            'products_list' : products_list,
+            'quantity_list' : quantity_list,
+            'product_quantity' : product_quantity,
+            'cond' : False        
+        })
 
 def add(request): 
     client_name = request.POST["client"]
@@ -86,10 +95,10 @@ def detail_update_delete(request):
     try:
         sell = get_object_or_404(Sell, pk=request.POST["choice"])
     except (KeyError, Sell.DoesNotExist):
-                return render(request, "sells/index.html", {
-                    'sells_list':sells_list,
-                    "error_message": "No elegiste una venta"
-                })
+        return render(request, "sells/index.html", {
+            'sells_list':sells_list,
+            "error_message": "No elegiste una venta"
+        })
     else:
 
         if request.POST["action"] == "Editar":
@@ -109,6 +118,7 @@ def detail_update_delete(request):
                 'sell' : sell
             })
         elif request.POST["action"] == "Detalle":
+            
             sell_product_set = sell.sell_product_set.all()
             return render(request, "sells/detail.html",{
                 'sell': sell,
@@ -142,6 +152,7 @@ def update_add(request, sell_id):
         'sell_product_set' : sell_product_set
 
     })
+
 def update_del(request, sell_id):
     sell = get_object_or_404(Sell, pk=sell_id)
     clients_list = Client.objects.all()
@@ -166,22 +177,31 @@ def save_update(request, sell_id):
     sell.client = client
     sell.save()
 
+    set_product = sell.sell_product_set.all()
+
     products_totals = sell.product.count()
     products_list = []
+    
     for i in range(products_totals):
+        product_old = get_object_or_404(Product, pk = set_product[i].product.pk)
+        product_old.stock += set_product[i].quantity
+        product_old.save()
+
         var = 'product_'+str(i+1)
         name = request.POST[var]
         product = get_object_or_404(Product, name = name)
         products_list.append(product)
 
-        var = 'quantity_'+str(i+1)
-        quantity = request.POST[var]
-        product.stock += int(quantity)
-        product.save()
+        
+
     sell.product.set(products_list)
     suma = 0
+
     for i in range(products_totals):
-        sell_detail = sell.sell_product_set.get(product=products_list[i])
+        var = 'product_'+str(i+1)
+        name = request.POST[var]
+        product = get_object_or_404(Product, name = name)
+        sell_detail = sell.sell_product_set.get(product=product)
         var = 'quantity_'+str(i+1)
         quantity = request.POST[var]
         sell_detail.quantity = int(quantity)
@@ -191,7 +211,7 @@ def save_update(request, sell_id):
         var = 'price_'+str(i+1)
         price = request.POST[var]
         sell_detail.price = float(price)
-
+    
         total = float(price) * float(quantity)
         sell_detail.total = total
         sell_detail.save()
