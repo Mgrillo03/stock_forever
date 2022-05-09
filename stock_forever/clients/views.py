@@ -10,8 +10,12 @@ from .models import Client
 
 def index(request):
     clients_list = Client.objects.all()
+    total_debts = 0
+    for i in clients_list:
+        total_debts += float(i.debt)
     return render(request, "clients/index.html",{
-        'clients_list' : clients_list
+        'clients_list' : clients_list,
+        'total_debts' : total_debts
     })
 
 def new(request):
