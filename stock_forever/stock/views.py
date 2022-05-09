@@ -14,6 +14,14 @@ def index(request):
         'product_list' : product_list
     })
 
+def search(request):
+    query = request.GET["search"]
+    product_list = Product.objects.filter(name__contains=query)
+    return render(request, "stock/index.html",{
+        "product_list" : product_list
+    })
+
+
 def new(request):
     return render(request, "stock/new.html",{})
 
