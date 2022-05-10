@@ -32,7 +32,22 @@
 
             <h1 class="titulo">Productos en Stock</h1>
         </header>
-        <main>           
+        <main>       
+            
+        <form action="{% url 'stock:search'%}" method = "get" class="search-form">
+            
+            <input   type="text" 
+                    id="search"  
+                    placeholder="Busqueda.." 
+                    name="search" 
+                    value="{{search.id}}" 
+                    class="search-field"
+                    required
+                    />
+            
+            <input type="submit" value="Buscar" id="search-button">
+
+        </form>
     
         <form action="{% url 'stock:update_or_delete'%}" method="post" class="main-form">
             {% csrf_token %}
@@ -71,6 +86,8 @@
                     
                 </table>
             </div>
+            <div class="totals_show">Total en Costo: ${{total_price}}</div>
+            <div class="totals_show">Total en Stock: ${{total_sell_price}}</div>
 
             {% if error_message %}
                     <p><strong>{{error_message}}</strong></p>   

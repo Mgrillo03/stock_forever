@@ -10,8 +10,18 @@ from .models import Product
 
 def index(request):
     product_list = Product.objects.all()
+    total_sell_price = 0
+    total_price = 0
+
+    for i in product_list:
+        total_sell_price += float(i.sell_price)
+        total_price += float(i.price)
+
+
     return render(request, "stock/index.html",{
-        'product_list' : product_list
+        'product_list' : product_list,
+        'total_sell_price' : total_sell_price,
+        'total_price' : total_price
     })
 
 def search(request):
