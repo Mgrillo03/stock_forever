@@ -1,42 +1,14 @@
-{% load static %}
-<!DOCTYPE html>
-
-
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'stock/reset.css' %}">
-    <link rel="stylesheet" href="{% static 'stock/style_g.css' %}">
-    <title>Stock Forever</title>
-    
-</head>
+{% extends 'stock/header.html' %}
+{% block content %}
+{% if product_list %}
 <body>
-    {% if product_list %}
-        <header>
-            <nav>
-                <figure>
-                    <a href="{% url 'stock:index'%}"><img src="{% static 'stock/images/logo_negro.png'  %}" alt=" logo"class="image"></a>
-                </figure>
-                <ul class="main-nav">
-                    <li><a href="{% url 'stock:index'%}">| Stock</a></li>
-                    <li><a href="{% url 'sells:index'%}">Ventas</a></li>
-                    <li><a href="#">Compras</a></li>
-                    <li><a href="{% url 'clients:index'%}">Clientes</a></li>
-                    <li><a href="{% url 'supplier:index'%}">Proveedores</a></li>
-                    <li><a href="#">Estadisticas</a></li>
-                    <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
-                </ul>
-            </nav>
-
-            <h1 class="titulo">Productos en Stock</h1>
-        </header>
+        
         <main>       
+            <h1 class="titulo">Productos en Stock</h1>
             
         <form action="{% url 'stock:search'%}" method = "get" class="search-form">
             
-            <input   type="text" 
+            <input  type="text" 
                     id="search"  
                     placeholder="Busqueda.." 
                     name="search" 
@@ -110,5 +82,6 @@
     <footer>
 
     </footer>
+    {% endblock %}
     
 </body>

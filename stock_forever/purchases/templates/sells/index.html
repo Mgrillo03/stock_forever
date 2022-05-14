@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'stock/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'stock/style_g.css' %}">
+    <title>Stock Forever</title>
+    
+</head>
+<body>
+    
+        <header>
+            <nav>
+                <figure>
+                    <a href="{% url 'stock:index'%}"><img src="{% static 'stock/images/logo_negro.png'  %}" alt=" logo"class="image"></a>
+                </figure>
+                <ul class="main-nav">
+                    <li><a href="{% url 'stock:index'%}">| Stock</a></li>
+                    <li><a href="{% url 'sells:index'%}">Ventas</a></li>
+                    <li><a href="#">Compras</a></li>
+                    <li><a href="{% url 'clients:index'%}">Clientes</a></li>
+                    <li><a href="{% url 'supplier:index'%}">Proveedores</a></li>
+                    <li><a href="#">Estadisticas</a></li>
+                    <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
+                </ul>
+            </nav>
+
+            <h1 class="titulo">Ventas</h1>
+        </header>
+    {% if sells_list %}
+        <main>           
+    
+        <form action="{% url 'sells:detail_update_delete' %}" method="post" class="main-form">
+            {% csrf_token %}
+            <div class="table-container">
+                <table class="main-table">
+                    <tr>
+                    <td >-</td>
+                    <th class="main-table__pk">Cod</th>
+                    <th id="nombre"><strong>Cliente </strong></th>
+                    <th ><strong> Fecha </strong></th>
+                    <th class="main-table__col_total"><strong> Total </strong></th>
+                    </tr>
+            
+                    {% for choice in sells_list  %}
+                            <tr class="main-table__row">
+                            <td><input 
+                                type="radio" 
+                                name="choice" 
+                                id="choice{{ forloop.counter }}"
+                                value="{{choice.id}}"></td>
+                            <label for="choice{{ forloop.counter }}">
+
+                                <td>{{choice.pk}}</td>                                
+                                <td>{{choice.client.name}}</td>
+                                <td>{{choice.sell_date}}</td>
+                                <td id="main-table__col_total">{{choice.total}}$</td>
+                                </tr>
+                            </label>      
+                    {% endfor %}  
+                    
+                </table>
+            </div>
+
+            {% if error_message %}
+                    <p><strong>{{error_message}}</strong></p>   
+            {% endif %}
+
+            <input type="submit" name="action" value="Detalle">
+            <input type="submit" name="action" value="Eliminar">
+            <input type="submit" name="action" value="Editar">
+            <a href="{% url 'sells:new_1'%}" class="button_grillo" >Nueva Venta</a>
+            
+        </form>
+        
+    
+        
+
+        </main>
+    {% else %}
+        <p class="titulo">No elements are available.</p>
+        <a href="{% url 'sells:new_1' %}" class="button_grillo" >Nuevo Cliente</a>
+    {% endif %}
+
+    <footer>
+    </footer>
+    
+</body>

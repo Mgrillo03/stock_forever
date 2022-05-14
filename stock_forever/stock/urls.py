@@ -8,6 +8,8 @@ app_name = 'stock'
 urlpatterns = [
     #ex: /stock/
     path("",  views.index, name= "index"),
+    #ex: /stock/search/
+    path("search/", views.search, name="search"),
     #ex: /stock/5/
     #path("<int:pk>/",  views.DetailView.as_view(), name= "detail"),
     #ex: /stock/5/update/   falta actualizar

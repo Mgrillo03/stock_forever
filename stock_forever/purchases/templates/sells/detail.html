@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'stock/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'stock/style_g.css' %}">
+    <title>Stock Forever</title>
+    
+</head>
+<body>
+    
+    <header>
+        <nav>
+            <figure>
+                <a href="{% url 'stock:index'%}"><img src="{% static 'stock/images/logo_negro.png'  %}" alt=" logo"class="image"></a>
+            </figure>
+            <ul class="main-nav">
+                <li><a href="{% url 'stock:index'%}">| Stock</a></li>
+                <li><a href="{% url 'sells:index'%}">Ventas</a></li>
+                <li><a href="#">Compras</a></li>
+                <li><a href="{% url 'clients:index'%}">Clientes</a></li>
+                <li><a href="{% url 'supplier:index'%}">Proveedores</a></li>
+                <li><a href="#">Estadisticas</a></li>
+                <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
+            </ul>
+        </nav>
+
+        <h1 class="titulo">Ventas</h1>
+    </header>
+    <main>           
+
+    <form action="{% url 'sells:detail_update_delete' %} " method="post" class="main-form">
+        {% csrf_token %}
+        <span >Cliente: {{sell.client}} Cod: {{sell.pk}}</span> <br><br>
+        <span>Fecha: {{sell.sell_date}}</span><br><br>
+        <div class="table-container">
+            <table class="main-table-detail">
+                <tr>
+                <th class="main-table__row_l_t"><strong>Articulo </strong></th>
+                <th class="main-table__row_r_t"><strong> Precio </strong></th>
+                <th class="main-table__row_r_t"><strong> Cantidad </strong></th>
+                <th class="main-table__row_r_t"><strong> Total </strong></th>
+                </tr>
+        
+                {% for choice in sell_product_set  %}
+                        <tr class="main-table__row">   
+                            <label for="choice{{ forloop.counter }}">                            
+                            <td class="main-table__row_l">{{choice.product}}</td>
+                            <td class="main-table__row_r">{{choice.price}}$</td>
+                            <td class="main-table__row_r">{{choice.quantity}}</td>
+                            <td class="main-table__row_r">{{choice.total}}$</td>
+                            </tr>
+                            </label>      
+                {% endfor %}  
+                <td><input type="hidden" name="choice" id="choice" value="{{sell.pk}}"></td>
+                
+            </table>
+        </div>
+        <div>
+            Total: {{sell.total}}$
+        </div>
+
+        
+    
+        <input type="submit" name="action" value="Eliminar">
+        <input type="submit" name="action" value="Editar">
+        <a href="{% url 'sells:index'%}" class="button_grillo" >Cancelar</a>
+        
+    </form>
+    </main>
+
+
+    <footer>
+    </footer>
+    
+</body>

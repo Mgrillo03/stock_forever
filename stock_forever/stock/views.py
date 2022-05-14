@@ -9,7 +9,7 @@ from .models import Product
 
 
 def index(request):
-    product_list = Product.objects.all()
+    product_list = Product.objects.all().order_by('-stock')
     total_sell_price = 0
     total_price = 0
 

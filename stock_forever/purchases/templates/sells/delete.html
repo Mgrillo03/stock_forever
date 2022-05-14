@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'stock/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'stock/style_g.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <figure>
+                <a href="{% url 'stock:index'%}"><img src="{% static 'stock/images/logo_negro.png'  %}" alt=" logo"class="image"></a>
+            </figure>
+            <ul class="main-nav">
+                <li><a href="{% url 'stock:index'%}">| Stock</a></li>
+                <li><a href="{% url 'sells:index'%}">Ventas</a></li>
+                <li><a href="#">Compras</a></li>
+                <li><a href="{% url 'clients:index'%}">Clientes</a></li>
+                <li><a href="{% url 'supplier:index'%}">Proveedores</a></li>
+                <li><a href="#">Estadisticas</a></li>
+                <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
+            </ul>
+        </nav>    
+    <h1 class="titulo">Estas a punto de eliminar la venta: {{sell.pk}} del cliente {{sell.client.name}}</h1>
+    </header>    
+    <main>
+    <div>
+        <h6 class="titulo">estas seguro que deseas continuar?</h6>
+        <form action="{% url 'sells:confirm_delete' sell.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" name="action" value="Eliminar">
+            <input type="submit" name="action" value="Cancelar">
+        </form>
+    </div>
+    </main>
+    
+</body>
+</html>
