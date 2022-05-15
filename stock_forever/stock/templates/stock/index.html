@@ -1,7 +1,10 @@
 {% extends 'stock/header.html' %}
 {% block content %}
 {% if product_list %}
+{% load static %}
+
 <body>
+    
         
         <main>       
             <h1 class="titulo">Productos en Stock</h1>
@@ -16,9 +19,10 @@
                     class="search-field"
                     required
                     />
-            
-            <input type="image" id="search-button" src="{% static 'stock/images/search.png'  %}">
-            <a href="{% url 'stock:index' %}" ><img src="{% static 'stock/images/refresh.png'  %}" alt=" agregar"class="refresh-button"></a>
+
+                
+                <input type="image" id="search-button" src="{% static 'stock/images/search.png'  %}">
+                <a href="{% url 'stock:index' %}" ><img src="{% static 'stock/images/refresh.png'  %}" alt=" agregar"class="refresh-button"></a>
 
         </form>
     
@@ -76,13 +80,12 @@
         
 
         </main>
-    {% else %}
-        <p>No elements are available.</p>
-    {% endif %}
+{% else %}
+    <p>No elements are available.</p>
+{% endif %}
 
-    <footer>
+<footer>
 
-    </footer>
-    {% endblock %}
-    
+</footer>   
 </body>
+{% endblock %}
