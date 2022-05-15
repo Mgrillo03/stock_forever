@@ -36,7 +36,7 @@
             
         <form action="{% url 'stock:search'%}" method = "get" class="search-form">
             
-            <input   type="text" 
+            <input  type="text" 
                     id="search"  
                     placeholder="Busqueda.." 
                     name="search" 
@@ -45,7 +45,8 @@
                     required
                     />
             
-            <input type="submit" value="Buscar" id="search-button">
+            <input type="image" id="search-button" src="{% static 'stock/images/search.png'  %}">
+            <a href="{% url 'stock:index' %}" ><img src="{% static 'stock/images/refresh.png'  %}" alt=" agregar"class="refresh-button"></a>
 
         </form>
     
