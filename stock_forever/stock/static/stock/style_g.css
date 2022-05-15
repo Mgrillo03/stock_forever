@@ -446,12 +446,8 @@ figure{
 }
 
 .search-field{
-    margin: 5px;
-    margin-bottom: 15px;
-    
-
     height: 25px;
-    width: 80%;
+    width: 90%;
 
     border-radius: 5px;
     border: 1px solid #612b6e77;
@@ -459,15 +455,23 @@ figure{
 }
 
 #search-button{
-    margin-top: 10px;
-    margin-left: 40PX  ;
+    margin-top: 0px;
+    margin-left: 10px;
 
-    height: 40px;
-    width: 10%;
+    padding-top: 5px;
 
-    border-radius: 5px;
+    height: 25px;
+    width: auto;
+}
 
-    
+.refresh-button{
+    margin-top: 0px;
+    margin-left: 10px;
+
+    padding-top: 5px;
+
+    height: 25px;
+    width: auto;
 }
 
 .search-form{
@@ -481,7 +485,8 @@ figure{
     /* padding-bottom: 10px; */
     margin-bottom: 20px; 
     
-
+    
+    height: 60px;
     width: 70%;
     box-shadow: 1px 1px 5px 0 #0000007c;
 
