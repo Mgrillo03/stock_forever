@@ -1,5 +1,3 @@
-from itertools import product
-from multiprocessing import Condition
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -230,6 +228,6 @@ def confirm_detele(request, purchase_id):
     if request.POST["action"] == "Eliminar":
         purchase = get_object_or_404(Purchase, pk=purchase_id)
         purchase.delete()
-        return render(request, "purchases/sell_deleted.html",{})
+        return render(request, "purchases/purchase_deleted.html",{})
     else:
         return HttpResponseRedirect(reverse("purchases:index"))

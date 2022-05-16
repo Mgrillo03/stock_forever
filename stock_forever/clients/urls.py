@@ -17,6 +17,6 @@ urlpatterns = [
     #ex /clients/add
     path("new/added/",views.add, name= "add"),
     #ex /clients/5/product_deleted
-    path("<int:client_id>/product-deleted", views.confirm_detele, name="confirm_delete")
+    path("<int:client_id>/client-deleted", views.confirm_detele, name="confirm_delete")
     
 ]

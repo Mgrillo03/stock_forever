@@ -5,6 +5,7 @@ from . import views
 
 app_name = 'purchases'
 
+
 urlpatterns = [
     #ex: /purchases/
     path("",  views.index, name= "index"),

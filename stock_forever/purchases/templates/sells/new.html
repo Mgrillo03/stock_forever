@@ -1,35 +1,10 @@
-<!DOCTYPE html>
+{% extends 'stock/header.html' %}
+{% block content %}
 {% load static %}
-<html lang="en">
-<head>
-    
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'stock/reset.css' %}">
-    <link rel="stylesheet" href="{% static 'stock/style_g.css' %}">
-    <title>Agregar nuevo articulo</title>
-</head>
+
 <body>
-    <header>
-        <nav>
-            <figure>
-                <a href="{% url 'stock:index'%}"><img src="{% static 'stock/images/logo_negro.png'  %}" alt=" logo"class="image"></a>
-            </figure>
-            <ul class="main-nav">
-                <li><a href="{% url 'stock:index'%}">| Stock</a></li>
-                <li><a href="{% url 'sells:index'%}">Ventas</a></li>
-                <li><a href="#">Compras</a></li>
-                <li><a href="{% url 'clients:index'%}">Clientes</a></li>
-                <li><a href="{% url 'supplier:index'%}">Proveedores</a></li>
-                <li><a href="#">Estadisticas</a></li>
-                <li><a href="https://www.instagram.com/foreverglam.ya/?hl=es">Instagram</a></li>
-            </ul>
-        </nav>
-        <h1 class="titulo">Nueva Venta</h1>
-    </header>
     <div class="stock">
-        
+     <h1 class="titulo">Nueva Venta</h1>   
 
         <div class="form-container-sell">
             {% if cond == True%} 
@@ -136,4 +111,4 @@
     </div>
     
 </body>
-</html>
+{% endblock %}
