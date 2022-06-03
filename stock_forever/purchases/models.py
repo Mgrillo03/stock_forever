@@ -1,17 +1,15 @@
-from doctest import FAIL_FAST
-from itertools import product
 from django.db import models
 
 
-from clients.models import Client
+from supplier.models import Supplier
 from stock.models import Product
 
 class Purchase(models.Model):
-    client = models.ForeignKey(
-            Client, 
+    supplier = models.ForeignKey(
+            Supplier, 
             on_delete= models.CASCADE,
-            null=False, 
-            blank= False
+            null= False, 
+            blank= False,
     )
     purchase_date = models.DateTimeField(auto_now_add=True)
     product = models.ManyToManyField(
@@ -19,7 +17,7 @@ class Purchase(models.Model):
         through='Purchase_Product',
         blank=True
     )
-    total = models.FloatField(default=0)
+    total = models.FloatField(default=0) 
 
 
 class Purchase_Product(models.Model):

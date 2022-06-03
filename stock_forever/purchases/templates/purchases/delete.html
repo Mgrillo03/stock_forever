@@ -4,10 +4,10 @@
 
 <body>   
     <main>
-    <h1 class="titulo">Estas a punto de eliminar la venta: {{sell.pk}} del cliente {{sell.client.name}}</h1>    
+    <h1 class="titulo">Estas a punto de eliminar la compra: {{purchase.pk}} del Proveedor {{purchase.supplier.name}}</h1>    
     <div>
         <h6 class="titulo">estas seguro que deseas continuar?</h6>
-        <form action="{% url 'sells:confirm_delete' sell.id %}" method="post">
+        <form action="{% url 'purchases:confirm_delete' purchase.id %}" method="post">
             {% csrf_token %}
             <input type="submit" name="action" value="Eliminar">
             <input type="submit" name="action" value="Cancelar">

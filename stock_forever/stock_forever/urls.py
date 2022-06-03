@@ -26,5 +26,6 @@ urlpatterns = [
     path("",  views.index, name= "index"),
     path('clients/', include("clients.urls")),
     path('supplier/', include("supplier.urls")),
-    path('sells/', include("sells.urls"))
+    path('sells/', include("sells.urls")),
+    path('purchases/', include("purchases.urls")),
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)

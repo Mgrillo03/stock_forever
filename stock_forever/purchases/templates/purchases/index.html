@@ -3,23 +3,23 @@
 {% load static %}
 
 <body>
-    <h1 class="titulo">Ventas</h1>    
-    {% if sells_list %}
+    <h1 class="titulo">Compras</h1>    
+    {% if purchases_list %}
         <main>           
     
-        <form action="{% url 'sells:detail_update_delete' %}" method="post" class="main-form">
+        <form action="{% url 'purchases:detail_update_delete' %}" method="post" class="main-form">
             {% csrf_token %}
             <div class="table-container">
                 <table class="main-table">
                     <tr>
                     <td >-</td>
                     <th class="main-table__pk">Cod</th>
-                    <th id="nombre"><strong>Cliente </strong></th>
+                    <th id="nombre"><strong>Proveedor </strong></th>
                     <th ><strong> Fecha </strong></th>
                     <th class="main-table__col_total"><strong> Total </strong></th>
                     </tr>
             
-                    {% for choice in sells_list  %}
+                    {% for choice in purchases_list  %}
                             <tr class="main-table__row">
                             <td><input 
                                 type="radio" 
@@ -30,7 +30,7 @@
 
                                 <td>{{choice.pk}}</td>                                
                                 <td>{{choice.client.name}}</td>
-                                <td>{{choice.sell_date}}</td>
+                                <td>{{choice.purchase_date}}</td>
                                 <td id="main-table__col_total">{{choice.total}}$</td>
                                 </tr>
                             </label>      
@@ -46,18 +46,19 @@
             <input type="submit" name="action" value="Detalle">
             <input type="submit" name="action" value="Eliminar">
             <input type="submit" name="action" value="Editar">
-            <a href="{% url 'sells:new_1'%}" class="button_grillo" >Nueva Venta</a>
+            <a href="{% url 'purchases:new_1'%}" class="button_grillo" >Nueva Compra</a>
             
         </form>
         
     
         
 
-        </main>
     {% else %}
         <p class="titulo">No elements are available.</p>
-        <a href="{% url 'sells:new_1' %}" class="button_grillo" >Nuevo Cliente</a>
+        <a href="{% url 'purchases:new_1' %}" class="button_grillo" >Nueva Compra</a>
     {% endif %}
+    
+        </main>
 
     <footer>
     </footer>

@@ -5,12 +5,12 @@
 <body>
 
     <main>       
-     <h1 class="titulo">Ventas</h1>        
+     <h1 class="titulo">Compras</h1>        
 
-    <form action="{% url 'sells:detail_update_delete' %} " method="post" class="main-form">
+    <form action="{% url 'purchases:detail_update_delete' %} " method="post" class="main-form">
         {% csrf_token %}
-        <span >Cliente: {{sell.client}} Cod: {{sell.pk}}</span> <br><br>
-        <span>Fecha: {{sell.sell_date}}</span><br><br>
+        <span >Cliente: {{purchase.client}} Cod: {{purchase.pk}}</span> <br><br>
+        <span>Fecha: {{purchase.purchase_date}}</span><br><br>
         <div class="table-container">
             <table class="main-table-detail">
                 <tr>
@@ -20,7 +20,7 @@
                 <th class="main-table__row_r_t"><strong> Total </strong></th>
                 </tr>
         
-                {% for choice in sell_product_set  %}
+                {% for choice in purchase_product_set  %}
                         <tr class="main-table__row">   
                             <label for="choice{{ forloop.counter }}">                            
                             <td class="main-table__row_l">{{choice.product}}</td>
@@ -30,19 +30,19 @@
                             </tr>
                             </label>      
                 {% endfor %}  
-                <td><input type="hidden" name="choice" id="choice" value="{{sell.pk}}"></td>
+                <td><input type="hidden" name="choice" id="choice" value="{{purchase.pk}}"></td>
                 
             </table>
         </div>
         <div>
-            Total: {{sell.total}}$
+            Total: {{purchase.total}}$
         </div>
 
         
     
         <input type="submit" name="action" value="Eliminar">
         <input type="submit" name="action" value="Editar">
-        <a href="{% url 'sells:index'%}" class="button_grillo" >Cancelar</a>
+        <a href="{% url 'purchases:index'%}" class="button_grillo" >Cancelar</a>
         
     </form>
     </main>

@@ -2,46 +2,46 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
-
 from .models import Purchase
 from stock.models import Product
-from clients.models import Client
+from supplier.models import Supplier
 
 
 
 def index(request):
     purchases_list = Purchase.objects.all()
-    purchase = Purchase.objects.first()
     
-    return render(request, "purchases/index2.html",{
+    #purchase = Purchase.objects.first()
+    
+    return render(request, "purchases/index.html",{
         'purchases_list' : purchases_list
     })
 
 def new_1(request, error_message = ''):
-    clients_list = Client.objects.all()
+    suppliers_list = Supplier.objects.all()
      
     return render(request, "purchases/new.html",{
-        'clients_list' : clients_list,
+        'suppliers_list' : suppliers_list,
         'error_message': error_message,
         'cond' : True
     })
 
 def new_2(request):
-    clients_list = Client.objects.all()
+    suppliers_list = Supplier.objects.all()
     products_list = Product.objects.all()
     product_quantity = request.POST["quantity"]
-    client_name = request.POST["client"]
+    supplier_name = request.POST["supplier"]
     quantity_list = range(int(product_quantity))
 
     try:
-        client = Client.objects.get(name=client_name)
-    except (KeyError, Client.DoesNotExist):
-                error_message = 'El cliente ingresano no existe en la base de datos'
+        supplier = Supplier.objects.get(name=supplier_name)
+    except (KeyError, supplier.DoesNotExist):
+                error_message = 'El proveedor ingresano no existe en la base de datos'
                 return new_1(request,error_message=error_message)
     else:
 
         return render(request, "purchases/new.html",{        
-            'client_name' : client_name,
+            'supplier_name' : supplier_name,
             'products_list' : products_list,
             'quantity_list' : quantity_list,
             'product_quantity' : product_quantity,
@@ -49,20 +49,20 @@ def new_2(request):
         })
 
 def add(request): 
-    client_name = request.POST["client"]
-    client = Client.objects.get(name=client_name)
-    purchase = Purchase.objects.create(client=client)
+    supplier_name = request.POST["supplier"]
+    supplier = Supplier.objects.get(name=supplier_name)
+    purchase = Purchase.objects.create(supplier=supplier)
     purchase.save()
     product_quantity = request.POST["product_quantity"]
     suma=0
     for i in range(int(product_quantity)):
-        var = "product_"+str(i+1)
+        var = "product_"+str(i+1)   
         name = request.POST[var]
         product = Product.objects.get(name=name)
         
         var = "quantity_"+str(i+1)
         quantity = request.POST[var]
-        product.stock -= int(quantity)
+        product.stock += int(quantity)
         product.save()
 
         var = "price_"+str(i+1)
@@ -79,8 +79,8 @@ def add(request):
 
     payed = request.POST["payed"]
     substraction = suma - float(payed)
-    client.debt += substraction
-    client.save()
+    supplier.debt -= substraction
+    supplier.save()
 
     return render(request, "purchases/add.html",{
         'purchase':purchase,
@@ -95,19 +95,19 @@ def detail_update_delete(request):
     except (KeyError, Purchase.DoesNotExist):
         return render(request, "purchases/index.html", {
             'purchases_list':purchases_list,
-            "error_message": "No elegiste una venta"
+            "error_message": "No elegiste una compra"
         })
     else:
 
         if request.POST["action"] == "Editar":
             products_list = Product.objects.all()
-            clients_list = Client.objects.all()
+            suppliers_list = Supplier.objects.all()
             purchase_product_set = purchase.purchase_product_set.all()
 
             return render(request, "purchases/update.html",{
                 'purchase' : purchase,
                 'products_list' : products_list,
-                'clients_list' : clients_list,
+                'suppliers_list' : suppliers_list,
                 'purchase_product_set' : purchase_product_set
 
             })
@@ -140,20 +140,20 @@ def update_add(request, purchase_id):
             purchase.product.add(i)
             break    
     purchase.save()
-    clients_list = Client.objects.all()
+    suppliers_list = Supplier.objects.all()
     purchase_product_set = purchase.purchase_product_set.all()
 
     return render(request, "purchases/update.html",{
         'purchase' : purchase,
         'products_list' : products_list,
-        'clients_list' : clients_list,
+        'suppliers_list' : suppliers_list,
         'purchase_product_set' : purchase_product_set
 
     })
 
 def update_del(request, purchase_id):
     purchase = get_object_or_404(Purchase, pk=purchase_id)
-    clients_list = Client.objects.all()
+    suppliers_list = Supplier.objects.all()
     products_list = Product.objects.all()
     last_product = purchase.product.last()   
     purchase.product.remove(last_product)
@@ -163,16 +163,16 @@ def update_del(request, purchase_id):
     return render(request, "purchases/update.html",{
         'purchase' : purchase,
         'products_list' : products_list,
-        'clients_list' : clients_list,
+        'suppliers_list' : suppliers_list,
         'purchase_product_set' : purchase_product_set
 
     })
 
 def save_update(request, purchase_id):
     purchase = get_object_or_404(Purchase, pk=purchase_id)
-    client_name = request.POST["client"]
-    client = get_object_or_404(Client, name= client_name)
-    purchase.client = client
+    supplier_name = request.POST["supplier"]
+    supplier = get_object_or_404(Supplier, name= supplier_name)
+    purchase.supplier = supplier
     purchase.save()
 
     set_product = purchase.purchase_product_set.all()
@@ -203,7 +203,7 @@ def save_update(request, purchase_id):
         var = 'quantity_'+str(i+1)
         quantity = request.POST[var]
         purchase_detail.quantity = int(quantity)
-        product.stock -= int(quantity)
+        product.stock += int(quantity)
         product.save()
 
         var = 'price_'+str(i+1)
@@ -231,3 +231,4 @@ def confirm_detele(request, purchase_id):
         return render(request, "purchases/purchase_deleted.html",{})
     else:
         return HttpResponseRedirect(reverse("purchases:index"))
+

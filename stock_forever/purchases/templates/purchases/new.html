@@ -3,19 +3,20 @@
 {% load static %}
 
 <body>
+    <h1 class="titulo">Nueva Compra</h1>   
     <div class="stock">
-     <h1 class="titulo">Nueva Venta</h1>   
+     
 
         <div class="form-container-sell">
             {% if cond == True%} 
-                <form action="{% url 'sells:new_2'%}" method="post" class="main-form-new">
+                <form action="{% url 'purchases:new_2'%}" method="post" class="main-form-new">
                     {% csrf_token %}
 
-                    <label for="client" class="label">Comprador:</label>
-                    <input   list="client-list" name="client" class="input-sell" placeholder="Selccione Opcion.." required>
-                        <datalist id="client-list">
-                            {% for client in clients_list  %}
-                                <option value="{{client.name}}"></option>
+                    <label for="supplier" class="label">Proveedor:</label>
+                    <input   list="supplier-list" name="supplier" class="input-sell" placeholder="Selccione Opcion.." required>
+                        <datalist id="supplier-list">
+                            {% for supplier in suppliers_list  %}
+                                <option value="{{supplier.name}}"></option>
                         
                             {% endfor %}  
                         </datalist>
@@ -26,14 +27,14 @@
                                     
         
                     <input type="submit" value="Continuar" class="button_grillo">
-                    <a href="{% url 'sells:index'%}" class="button_grillo">Cancelar</a>
+                    <a href="{% url 'purchases:index'%}" class="button_grillo">Cancelar</a>
                 </form>
 
-                <form action="{% url 'sells:add'%}" method="post" class="main-form-new">
+                <form action="{% url 'purchases:add'%}" method="post" class="main-form-new">
                     {% csrf_token %}
 
                     
-                    <div class="sell-product">
+                    <div class="purchase-product">
                         <label for="product_1" class="label-disabled">Articulo 1 </label>
                         <input   list="products-list" name="product_1" class="input-sell" placeholder="Selccione Opcion.." disabled>
                         
@@ -55,12 +56,12 @@
                 </form>
 
             {% else %}
-                <form action="{% url 'sells:new_2'%}" method="post" class="main-form-new">
+                <form action="{% url 'purchases:new_2'%}" method="post" class="main-form-new">
                     {% csrf_token %}
                     
 
-                    <label for="client" class="label-disabled">Comprador:</label>
-                    <input   list="client-list" name="client" class="input-sell" placeholder="Selccione Opcion.." disabled>
+                    <label for="supplier" class="label-disabled">Proveedor:</label>
+                    <input   list="supplier-list" name="supplier" class="input-sell" placeholder="Selccione Opcion.." disabled>
                     
                     <label for="quantity" class="label-disabled">Cantidad de Articulos:</label>
                     <input  type="input" name="quantity" class="input-sell" value="1" disabled>
@@ -70,18 +71,18 @@
                     <a href="" id="button_grillo-disabled">Cancelar</a>
                 </form>
 
-                <form action="{% url 'sells:add'%}" method="post" class="main-form-new">
+                <form action="{% url 'purchases:add'%}" method="post" class="main-form-new">
                     {% csrf_token %}
-                    <input type="hidden" name="client" value="{{client_name}}">
+                    <input type="hidden" name="supplier" value="{{supplier_name}}">
                     <input type="hidden" name="product_quantity" value="{{product_quantity}}">
     
                     {% for option in quantity_list  %}
-                        <div class="sell-product">
+                        <div class="purchase-product">
                             <label for="product_{{forloop.counter}}" class="label">Articulo {{forloop.counter}} </label>
                             <input   list="products-list" name="product_{{forloop.counter}}" class="input-sell" placeholder="Selccione Opcion.." required>
                             <datalist id="products-list">
                                 {% for product in products_list  %}
-                                    <option value="{{product.name}}">{{product.name}} | {{product.sell_price}}$</option>
+                                    <option value="{{product.name}}">{{product.name}} | {{product.purchase_price}}$</option>
                             
                                 {% endfor %}  
                             </datalist>
@@ -100,7 +101,7 @@
                    
            
                     <input type="submit" value="Guardar" class="button_grillo">
-                    <a href="{% url 'sells:index'%}" class="button_grillo">Cancelar</a>
+                    <a href="{% url 'purchases:index'%}" class="button_grillo">Cancelar</a>
                </form>
            
            

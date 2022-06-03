@@ -1,0 +1,11 @@
+{% extends 'stock/header.html' %}
+{% block content %}
+{% load static %}
+
+<body>
+    <main>
+    <h1 class="titulo">Cambios guardados Satisfactoriamente {{purchase.client}}</h1>
+    <a href="{% url 'purchases:detail' purchase.id %}" class="button_grillo">Volver a compras</a>
+    </main>
+</body>
+{% endblock %}
