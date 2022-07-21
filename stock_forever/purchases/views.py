@@ -63,13 +63,15 @@ def add(request):
         var = "quantity_"+str(i+1)
         quantity = request.POST[var]
         product.stock += int(quantity)
-        product.save()
+        
 
         var = "price_"+str(i+1)
         price = request.POST[var]
-        
         total = float(quantity) * float(price)
         suma+=total
+        
+        product.price = price 
+        product.save()        
 
         purchase.product.add(product, through_defaults={'price':price,'quantity':quantity, 'total':total})
 
@@ -182,7 +184,7 @@ def save_update(request, purchase_id):
     
     for i in range(products_totals):
         product_old = get_object_or_404(Product, pk = set_product[i].product.pk)
-        product_old.stock += set_product[i].quantity
+        product_old.stock -= set_product[i].quantity
         product_old.save()
 
         var = 'product_'+str(i+1)
@@ -227,8 +229,20 @@ def save_update(request, purchase_id):
 def confirm_detele(request, purchase_id):
     if request.POST["action"] == "Eliminar":
         purchase = get_object_or_404(Purchase, pk=purchase_id)
+        set_product = purchase.purchase_product_set.all()
+
+        products_totals = purchase.product.count()
+        
+        for i in range(products_totals):
+            product_old = get_object_or_404(Product, pk = set_product[i].product.pk)
+            product_old.stock -= set_product[i].quantity
+            product_old.save() 
+
+        supplier = get_object_or_404(Supplier, pk=purchase.supplier.pk)
+        supplier.debt += purchase.total
+        supplier.save()
+
         purchase.delete()
         return render(request, "purchases/purchase_deleted.html",{})
     else:
         return HttpResponseRedirect(reverse("purchases:index"))
-

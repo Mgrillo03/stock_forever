@@ -1,0 +1,33 @@
+{% extends 'stock/header.html' %}
+{% block content %}
+{% load static %}
+
+<body>   
+    <main>
+        <h1 class="titulo">Estadisticas</h1>
+            <form action="{% url 'sells:show-metrics' %}" method="post" class = "main-form-metrics">
+                {% csrf_token %}
+                <label for="start">Inicio:</label>
+                <input type="date" id="start" name="start" value={{date_start}} max = {% now "Y-m-d" %} required>
+                
+                <label for="start">Final:</label>
+                <input type="date" id="end" name="end" value={{date_end}} max = {% now "Y-m-d" %} required>
+
+
+                <input type="submit" class="button-metrics" name="action" value="Ver" value="now">
+            </form>
+
+            <div class="metrics-container">
+                
+                <div><span>Cantidad de Ventas: </span>   <span class="metrics">{{ sells_quantity}}</span></div>
+                <div><span>Total de Ventas: </span>  <span class="metrics">${{total_sell}}</span></div>
+                <div><span>Total de Costo:  </span>  <span class="metrics">${{total_cost}}</span></div>
+                <div><span>Total Ganancia:  </span>   <span class="metrics">${{earnings}}</span></div>
+
+            </div>
+
+
+    </main>
+    
+</body>
+{% endblock %}

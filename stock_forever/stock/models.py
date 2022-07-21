@@ -1,6 +1,16 @@
 from django.db import models
 
 class Product(models.Model):
+    """ Product main model
+    name : product description or name
+    category : product category
+    material : product material
+    price : product cost
+    stock : quantity available 
+    sug_price : suggested sell price
+    sell_price : real sell price
+
+    """
     name = models.CharField(max_length=200)
     category = models.CharField(max_length=50)
     material = models.CharField(max_length=50)

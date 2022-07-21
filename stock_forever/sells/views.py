@@ -1,19 +1,36 @@
-from itertools import product
-from multiprocessing import Condition
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
 
 
 from .models import Sell
 from stock.models import Product
 from clients.models import Client
 
+import datetime
 
+def date_format(date):
+    """ date_format 
+        date type: datetime.date 
+        
+        format datetime.date into '%Y-%m-%d' 
+        adding 0 if de day or month are < 10 
+    """
+    date_start = str(date.year)
+    if date.month < 10:
+        date_start += '-0'+ str(date.month)
+    else:
+        date_start += '-'+ str(date.month)
+    if date.day < 10:
+        date_start += '-0'+ str(date.day)
+    else:
+        date_start += '-'+ str(date.day)
+    return date_start
+        
 
 def index(request):
     sells_list = Sell.objects.all()
-    sell = Sell.objects.first()
     
     return render(request, "sells/index.html",{
         'sells_list' : sells_list
@@ -29,7 +46,6 @@ def new_1(request, error_message = ''):
     })
 
 def new_2(request):
-    clients_list = Client.objects.all()
     products_list = Product.objects.all()
     product_quantity = request.POST["quantity"]
     client_name = request.POST["client"]
@@ -233,3 +249,75 @@ def confirm_detele(request, sell_id):
         return render(request, "sells/sell_deleted.html",{})
     else:
         return HttpResponseRedirect(reverse("sells:index"))
+
+
+def metrics(request):
+    sell_list = Sell.objects.filter(sell_date__gte = datetime.date(2022,7,20))
+    total_sell = 0
+    total_cost = 0
+    sells_quantity = sell_list.count()
+
+    for i in sell_list:
+        total_sell += i.total
+        product_quantity = i.sell_product_set.count()
+        sell_set = i.sell_product_set.all()
+        cost = 0
+        for j in range(product_quantity):
+            unit_cost = sell_set[j].product.price
+            quantity = sell_set[j].quantity
+            cost += unit_cost * quantity
+        total_cost += cost
+
+    earnings = total_sell - total_cost
+    date = datetime.date.today()
+
+    date_start = date_format(date)
+    
+
+        ### Calcular el total de todas las ventas en las fechas seleecionadas / Calcular el costo de cada articulo vendido
+    
+    return render(request, "sells/metrics.html",{
+        'total_sell' : total_sell,
+        'total_cost' : total_cost,
+        'sells_quantity' : sells_quantity,
+        'earnings' : earnings,
+        'date_start' : date_start,
+        'date_end' : date_start        
+    })
+
+def show_metrics(request):
+    date_start = request.POST['start']
+    date_end = request.POST['end']
+    date_end_fixed = datetime.datetime.strptime(date_end,'%Y-%m-%d')
+    date_end_fixed += datetime.timedelta(days=1)
+    q1 = Sell.objects.filter(sell_date__gte = date_start)
+    sell_list =  q1.filter(sell_date__lte=date_end_fixed)
+    total_sell = 0
+    total_cost = 0
+    sells_quantity = sell_list.count()
+    print(type(date_start),date_start)
+
+    for i in sell_list:
+        total_sell += i.total
+        product_quantity = i.sell_product_set.count()
+        sell_set = i.sell_product_set.all()
+        cost = 0
+        for j in range(product_quantity):
+            unit_cost = sell_set[j].product.price
+            quantity = sell_set[j].quantity
+            cost += unit_cost * quantity
+        total_cost += cost
+
+    earnings = total_sell - total_cost
+   
+    
+    
+    return render(request, "sells/metrics.html",{
+        'total_sell' : total_sell,
+        'total_cost' : total_cost,
+        'sells_quantity' : sells_quantity,
+        'earnings' : earnings,
+        'date_start' : date_start,
+        'date_end' : date_end
+        
+    })

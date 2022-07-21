@@ -1,5 +1,3 @@
-from doctest import FAIL_FAST
-from itertools import product
 from django.db import models
 
 
